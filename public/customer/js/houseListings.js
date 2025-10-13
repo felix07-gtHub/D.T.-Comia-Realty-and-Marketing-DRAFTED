@@ -370,7 +370,7 @@ async function houseListings() {
             propertyImage.src = '../resources/PROPERTY/' + data.houseListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.houseListings[i].property_id + '/' + data.houseListings[i].main_image;
             propertyImage.alt =  data.houseListings[i].main_image;
             propertyImage.type = "";
-            price.innerHTML = "&#8369;" + data.houseListings[i].price_formated;
+            price.innerHTML = "&#8369;" + data.houseListings[i].price_formatted;
             address.innerHTML = data.houseListings[i].address;
             bedIcon.src = "../resources/BUYER ICONS AND LOGOS/green bed.png";
             bedIcon.alt = "Bed icon";
@@ -440,6 +440,8 @@ async function houseListings() {
                             savedIcon.src = "../resources/BUYER ICONS AND LOGOS/whole heart.png";
                             savedIcon.alt = "Heart icon filled";
                             savedIcon.type = "";
+                            
+                            break;
                         };
                     };
                 } else {
@@ -537,8 +539,8 @@ async function houseListings() {
 
             more.classList.add('more');
             ViewSimilarProperties.innerHTML = "View Similar Properties";
-            scheduleTour.href = "";
-            scheduleTour.innerHTML = "Schedule Tour";
+            scheduleTour.href = "./contactPage.html";
+            scheduleTour.innerHTML = "Call for a Tour";
 
             property.appendChild(more);
             more.appendChild(ul);
@@ -681,7 +683,7 @@ async function houseListings() {
             imageContainerModal.appendChild(status);
             
             const priceModal = document.createElement('p');
-            priceModal.innerHTML = "&#8369;" + data.houseListings[i].price_formated;
+            priceModal.innerHTML = "&#8369;" + data.houseListings[i].price_formatted;
             details.appendChild(priceModal);
 
 
@@ -772,7 +774,7 @@ async function houseListings() {
             bathrRoomsCount.innerHTML = data.houseListings[i].bath_count;
             area.innerHTML = "Area";
             measurments.classList.add('measurements');
-            measurments.innerHTML = data.houseListings[i].area + "sq";
+            measurments.innerHTML = data.houseListings[i].area_formatted + "sq";
             images.classList.add('images');
 
             details.appendChild(propertyType);

@@ -180,7 +180,7 @@ async function user() {
 
                 //  DELETE THE USER SESSION.
             async function logOutFunction(e) {
-                const response = await fetch('://127.0.0.1:3000/log-out', {
+                const response = await fetch('http://127.0.0.1:3000/log-out', {
                     method: "GET",
                     credentials: "include"
                 });

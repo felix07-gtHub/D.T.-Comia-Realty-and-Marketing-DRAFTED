@@ -38,8 +38,8 @@ async function propertyInformation() {
     if(data != "") {
         propertyName.value = data.propertyInformation[0].address;
         locationPropertyDetails.value = data.propertyInformation[0].location;
-        lotArea.value = data.propertyInformation[0].area; + "sq";
-        totalPrice.value = '₱' + data.propertyInformation[0].price_formated;
+        lotArea.value = data.propertyInformation[0].area_formatted; + "sq";
+        totalPrice.value = '₱' + data.propertyInformation[0].price_formatted;
 
         const d = new Date();
         const dateReserved = d.getFullYear().toString().padStart(4, "0")  + '-' +

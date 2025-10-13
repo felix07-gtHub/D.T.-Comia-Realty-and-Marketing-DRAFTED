@@ -87,7 +87,7 @@ body > div:nth-child(4) > a:hover {
     color: #32402f;
 }
 
-#filter > div > div:not(#filter > div > select:nth-child(5) + div),
+#filter > div > div:not(#filter > div > select:nth-child(3) + div),
 #filter > div > select + div > #priceRange {
     width: 100%;
     max-width: 380px;
@@ -122,7 +122,7 @@ body > div:nth-child(4) > a:hover {
     margin: 7px 15px;
 }
 
-#filter > div > div:not(#filter > div > select:nth-child(5) + div):hover,
+#filter > div > div:not(#filter > div > select:nth-child(3) + div):hover,
 #filter > div > select:hover {
     transform: scale(1.05);
     transition: transform 0.25s;

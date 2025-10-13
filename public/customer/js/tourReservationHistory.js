@@ -1,5 +1,4 @@
 const listings = document.querySelector('#historyListings');
-const arrow1 = document.querySelector('#toursReservations > div:nth-child(1) > input');
 const sortDiv = document.querySelector('#toursReservations > div:nth-child(4) > div:nth-child(2)');
 const p = document.querySelector('#toursReservations > div:nth-child(4) > div:nth-child(2) > p')    
 const arrow2 = document.querySelector('#toursReservations > div:nth-child(4) > div > #arrowIcon');
@@ -29,45 +28,6 @@ function actionMousEave(e) {
 reservations.addEventListener("mouseleave", actionMousEave);
 tours.addEventListener("mouseleave", actionMousEave);
 
-    //  DIRECT TO PREVIOUS PAGE.
-function toggleArrowFunction() { 
-    sortInput = "All";
-    p.innerHTML = "All";
-
-    const checkMark = document.createElement('img');
-
-    ul.children[0].innerHTML = "All";
-    ul.children[0].style.color = '#45703c';
-    ul.children[0].removeEventListener("mouseleave", actionMousEave);
-    checkMark.src = "";
-    checkMark.alt = "Check mark";
-    checkMark.type = "";
-
-    ul.children[0].appendChild(checkMark);
-
-    if (ul.children[1].children.length > 0) {
-        ul.children[1].innerHTML = "Completed";
-        ul.children[1].style.color = '#000000';
-        ul.children[1].addEventListener("mouseleave", actionMousEave);
-
-    };
-
-    if (ul.children[2].children.length > 0) {
-        ul.children[2].innerHTML = "Cancelled";
-        ul.children[2].style.color = '#000000';
-        ul.children[2].addEventListener("mouseleave", actionMousEave);
-
-    };
-
-        //  UPDATES THE selectQuery ONCE THE SORT INPUT VALUE CHANGED.
-    historyListings().catch(console.error);
-
-    window.location = './tourReservationActive.html';
-
-};
-
-arrow1.addEventListener("click", toggleArrowFunction);
-
     //  HIDES ACTION DROP-DOWN.
 function hideActionDropDown(e) {        
     const titleBar = document.querySelector('#toursReservations > div:nth-child(1)');
@@ -78,10 +38,7 @@ function hideActionDropDown(e) {
             
         //  HIDES THE ACTION CHOCIES UNLESS Action icon WERE CLICKED.
     if(
-        (
-            !titleBar.contains(e.target) ||
-            arrow1.contains(e.target)
-        ) &&
+        !titleBar.contains(e.target) &&
         (
             !navBar.contains(e.target) ||
             menuIcon.contains(e.target) ||
@@ -301,7 +258,7 @@ async function historyListings() {
                         details.classList.add('details');
                         service.innerHTML = "RESERVATION";
 
-                        if(data.reservationListings[j].status != "completed") {
+                        if(data.reservationListings[j].status != "Completed") {
                             service.style.color = '#c92a2a';
                             status.innerHTML = data.reservationListings[j].status.toUpperCase();
                             status.style.color = '#c92a2a';
@@ -559,7 +516,7 @@ async function historyListings() {
                             const nextButton = document.createElement('input');
 
                             previousButton.type = "image";
-                             previousButton.src = "../resources/BUYER ICONS ADN LOGOS/left arrow-wh";
+                            previousButton.src = "../resources/BUYER ICONS ADN LOGOS/left arrow-wh";
                             previousButton.name = "Previous button";
                             previousButton.alt = "Previous icon";
                             previousButton.classList.add('previousIcon');

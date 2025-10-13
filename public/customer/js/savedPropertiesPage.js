@@ -1,42 +1,8 @@
 const listings = document.querySelector('#savedPropertiesListings');
-const arrow = document.querySelector('#savedProperties > div:nth-child(1) > input');
 const action = document.querySelector('#savedProperties > div:nth-child(2) > input');
 const actionDropDown = document.querySelector('#savedProperties #action');
 const edit = document.querySelector('#edit');
-const history = document.querySelector('#history'); 
-
-    //  DIRECT TO PREVIOUS PAGE.
-function toggleArrowFunction() { 
-    if(listings != "") {
-        const imageContainerPorperty1 = document.querySelector('#savedPropertiesListings > .property:nth-child(1) > .imageContainer');
-        const restoreDelete = document.querySelector('body > div:nth-child(4) > div:nth-child(4)');
-
-        if (imageContainerPorperty1.children.length > 1) {
-            edit.innerHTML = "Edit";
-            edit.style.color = '#e5d7c4';
-            edit.addEventListener("mouseleave", actionMousEave);
-
-            for(let i = 0; i < listings.children.length; i++) {
-                if(listings.children[i].classList == 'property') {
-                    listings.children[i].querySelector('.imageContainer > input').remove();
-                    listings.children[i].querySelector('.imageContainer > .selectCheckbox > img').remove();
-                    listings.children[i].querySelector('.imageContainer > .selectCheckbox').remove();
-
-                };
-
-            };
-
-            restoreDelete.style.display = "none";
-
-        };
-    }
-
-    //--DIRECT TO PREVIOUS PAGE--.
-
-
-};
-
-arrow.addEventListener("click", toggleArrowFunction);
+const history = document.querySelector('#history');
             
     //  FUNCTION FOR ACTION mouseenter.
 function actionMousEnter(e) {
@@ -64,10 +30,7 @@ function hideActionDropDown(e) {
             
         //  HIDES THE ACTION CHOCIES UNLESS Action icon WERE CLICKED.
     if(
-        (
-            !titleBar.contains(e.target) ||
-            arrow.contains(e.target)
-        ) &&
+        !titleBar.contains(e.target) &&
         (
             !navBar.contains(e.target) ||
             menuIcon.contains(e.target) ||
@@ -307,7 +270,7 @@ async function savedPropertiesListings() {
                     propertyImage.src = '../resources/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].main_image;
                     propertyImage.alt =  data.propertyListings[j].main_image;
                     propertyImage.type = "";
-                    price.innerHTML = "&#8369;" + data.propertyListings[j].price_formated;
+                    price.innerHTML = "&#8369;" + data.propertyListings[j].price_formatted;
                     address.innerHTML = data.propertyListings[j].address;
                     bedIcon.src = "../resources/BUYER ICONS AND LOGOS/green bed.png";
                     bedIcon.alt = "Bed icon";
@@ -428,14 +391,20 @@ async function savedPropertiesListings() {
                     const ul = document.createElement('ul');
                     const ViewSimilarPropertiesLi = document.createElement('li');
                     const ViewSimilarProperties = document.createElement('p');
+                    const scheduleTourLi = document.createElement('li');
+                    const scheduleTour = document.createElement('a');
 
                     more.classList.add('more');
                     ViewSimilarProperties.innerHTML = "View Similar Properties";
+                    scheduleTour.href = "./contactPage.html";
+                    scheduleTour.innerHTML = "Call for a Tour";
 
                     property.appendChild(more);
                     more.appendChild(ul);
                     ul.appendChild(ViewSimilarPropertiesLi);
                     ViewSimilarPropertiesLi.appendChild(ViewSimilarProperties);
+                    ul.appendChild(scheduleTourLi);
+                    scheduleTourLi.appendChild(scheduleTour);
 
                         //  SHOWS && HIDES MORE.
                     function showHideMore(e) {
@@ -575,7 +544,7 @@ async function savedPropertiesListings() {
                     imageContainerModal.appendChild(status);
             
                     const priceModal = document.createElement('p');
-                    priceModal.innerHTML = "&#8369;" + data.propertyListings[i].price_formated;
+                    priceModal.innerHTML = "&#8369;" + data.propertyListings[i].price_formatted;
                     details.appendChild(priceModal);
 
 
@@ -666,7 +635,7 @@ async function savedPropertiesListings() {
                     bathrRoomsCount.innerHTML = data.propertyListings[i].bath_count;
                     area.innerHTML = "Area";
                     measurments.classList.add('measurements');
-                    measurments.innerHTML = data.propertyListings[i].area + "sq";
+                    measurments.innerHTML = data.propertyListings[i].area_formatted + "sq";
                     images.classList.add('images');
 
                     details.appendChild(propertyType);

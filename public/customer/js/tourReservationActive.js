@@ -1,16 +1,7 @@
 const listings = document.querySelector('#activeListings');
-const arrow1 = document.querySelector('#toursReservations > div:nth-child(1) > input');
 
     //  INITIALIZE THE SORT FUNCTION.
 let sortInput = "All";
-
-    //  DIRECT TO PREVIOUS PAGE.
-function toggleArrowFunction() { 
-    //--DIRECT TO PREVIOUS PAGE--.
-
-};
-
-arrow1.addEventListener("click", toggleArrowFunction);
 
     //  .
 async function activeListings() {    

@@ -109,7 +109,7 @@ async function deletedListings() {
                 propertyImage.src = '../resources/PROPERTY/' + data.deletedPropertyListings[i].location.replace(/\s/g, "").replace(/\W/g, "_") + '/' + data.deletedPropertyListings[i].property_id + '/' + data.deletedPropertyListings[i].main_image;          
                 propertyImage.alt =  data.deletedPropertyListings[i].main_image;
                 propertyImage.type = "";
-                price.innerHTML = "&#8369;" + data.deletedPropertyListings[i].price_formated;
+                price.innerHTML = "&#8369;" + data.deletedPropertyListings[i].price_formatted;
                 address.innerHTML = data.deletedPropertyListings[i].address;
                 bedIcon.src = "../resources/AGENT ICONS/bed.png";
                 bedIcon.alt = "Bed icon";
@@ -260,7 +260,7 @@ async function deletedListings() {
                 bathrRoomsCount.innerHTML = data.deletedPropertyListings[i].bath_count;
                 area.innerHTML = "Area";
                 measurments.classList.add('measurements');
-                measurments.innerHTML = data.deletedPropertyListings[i].area + "sq";
+                measurments.innerHTML = data.deletedPropertyListings[i].area_formatted + "sq";
                 images.classList.add('images');
 
                 details.appendChild(propertyType);

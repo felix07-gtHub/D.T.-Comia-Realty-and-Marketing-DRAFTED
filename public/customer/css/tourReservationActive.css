@@ -17,12 +17,6 @@ body {
     width: 100%;
 }
 
-#toursReservations > div:nth-child(1) > input {
-    margin: 0px 20px;
-    width: 64px;
-    height: 64px;
-}
-
 #toursReservations > div:nth-child(1) > h1 {
     margin: 0px 20px;
     font-size: 40px;

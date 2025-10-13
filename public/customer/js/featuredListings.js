@@ -171,7 +171,7 @@ async function featuredProperty() {
             propertyImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
             propertyImage.alt =  data.featuredPropertyListings[i].main_image;
             propertyImage.type = "";
-            price.innerHTML = "&#8369;" + data.featuredPropertyListings[i].price_formated;
+            price.innerHTML = "&#8369;" + data.featuredPropertyListings[i].price_formatted;
             address.innerHTML = data.featuredPropertyListings[i].address;
             bedIcon.src = "../resources/BUYER ICONS AND LOGOS/green bed.png";
             bedIcon.alt = "Bed icon";
@@ -241,6 +241,8 @@ async function featuredProperty() {
                             savedIcon.src = "../resources/BUYER ICONS AND LOGOS/whole heart.png";
                             savedIcon.alt = "Heart icon filled";
                             savedIcon.type = "";
+
+                            break;
                         };
                     };
                 } else {
@@ -339,8 +341,8 @@ async function featuredProperty() {
 
             more.classList.add('more');
             ViewSimilarProperties.innerHTML = "View Similar Properties";
-            scheduleTour.href = "";
-            scheduleTour.innerHTML = "Schedule Tour";
+            scheduleTour.href = "./contactPage.html";
+            scheduleTour.innerHTML = "Call for a Tour";
 
             property.appendChild(more);
             more.appendChild(ul);
@@ -499,7 +501,7 @@ async function featuredProperty() {
             imageContainerModal.appendChild(status);
             
             const priceModal = document.createElement('p');
-            priceModal.innerHTML = "&#8369;" + data.featuredPropertyListings[i].price_formated;
+            priceModal.innerHTML = "&#8369;" + data.featuredPropertyListings[i].price_formatted;
             details.appendChild(priceModal);
 
 
@@ -590,7 +592,7 @@ async function featuredProperty() {
             bathrRoomsCount.innerHTML = data.featuredPropertyListings[i].bath_count;
             area.innerHTML = "Area";
             measurments.classList.add('measurements');
-            measurments.innerHTML = data.featuredPropertyListings[i].area + "sq";
+            measurments.innerHTML = data.featuredPropertyListings[i].area_formatted + "sq";
             images.classList.add('images');
 
             details.appendChild(propertyType);

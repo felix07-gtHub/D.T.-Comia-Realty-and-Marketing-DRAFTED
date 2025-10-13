@@ -85,7 +85,7 @@ async function featuredLandListings() {
         propertyImage.type = "";
         removeDelete.innerHTML = "x";
         removeDelete.classList.add('removeDelete');
-        price.innerHTML = "&#8369;" + data.featuredLandListings[i].price_formated;
+        price.innerHTML = "&#8369;" + data.featuredLandListings[i].price_formatted;
         address.innerHTML = data.featuredLandListings[i].address;
         bedIcon.src = "../resources/AGENT ICONS/bed.png";
         bedIcon.alt = "Bed icon";
@@ -237,7 +237,7 @@ async function featuredLandListings() {
         imageContainerModal.appendChild(status);
             
         const priceModal = document.createElement('p');
-        priceModal.innerHTML = "&#8369;" + data.featuredLandListings[i].price_formated;
+        priceModal.innerHTML = "&#8369;" + data.featuredLandListings[i].price_formatted;
         details.appendChild(priceModal);
           
             
@@ -298,7 +298,7 @@ async function featuredLandListings() {
         bathrRoomsCount.innerHTML = data.featuredLandListings[i].bath_count;
         area.innerHTML = "Area";
         measurments.classList.add('measurements');
-        measurments.innerHTML = data.featuredLandListings[i].area + "sq";
+        measurments.innerHTML = data.featuredLandListings[i].area_formatted + "sq";
         images.classList.add('images');
 
         details.appendChild(propertyType);

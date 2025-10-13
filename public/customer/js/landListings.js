@@ -4,7 +4,6 @@ let sortInput = ": Default";
     //  RESETS THE WHOLE FILTER.
 function reset() {
     const landTypeField = document.querySelector('select[name="Land type"]');
-    const divElement = document.querySelector('#filter > div');
     const selectLocationField = document.querySelector('select[name="Select location"]');
     const minRangeField = document.querySelector('#filter > div > select + div > #priceRange > input');
     const maxRangeField = document.querySelector('#filter > div > select + div > #priceRange > input + input');
@@ -12,8 +11,6 @@ function reset() {
     const ulElement = document.querySelector('#sortIcon + label + div > ul');
 
     landTypeField.value = "Any";
-    divElement.children[2].querySelector('div > input[type="number"]').value = "";
-    divElement.children[3].querySelector('div > input[type="number"]').value = "";
     selectLocationField.value = "Any";
     minRangeField.value = 0;
     maxRangeField.value = 54;
@@ -236,8 +233,6 @@ async function landListings() {
         propertyTypeInput = '(property_type = "residential lot" OR property_type = "commercial lot" OR property_type = "industrial lot" OR property_type = "agricultural / farm land" OR property_type = "subdivision lot" OR property_type = "beachfront lot" OR property_type = "mountain / hillside lot" OR property_type = "mixed-use lot" OR property_type = "vacant lot" OR property_type = "raw land" OR property_type = "investment lot")';
     };
 
-    const bedroomsInput = document.querySelector('input[name="Number of bedrooms"]').value;
-    const bathroomsInput = document.querySelector('input[name="Number of bathrooms"]').value;
     const locationInput = document.querySelector('select[name="Select location"]').value;
 
 
@@ -279,8 +274,6 @@ async function landListings() {
         },
         credentials: "include",
         body: JSON.stringify({propertyTypeInput,
-                              bedroomsInput,
-                              bathroomsInput,
                               locationInput,
                               minRangeInput,
                               maxRangeInput,
@@ -370,7 +363,7 @@ async function landListings() {
             propertyImage.src = '../resources/PROPERTY/' + data.landListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.landListings[i].property_id + '/' + data.landListings[i].main_image;
             propertyImage.alt =  data.landListings[i].main_image;
             propertyImage.type = "";
-            price.innerHTML = "&#8369;" + data.landListings[i].price_formated;
+            price.innerHTML = "&#8369;" + data.landListings[i].price_formatted;
             address.innerHTML = data.landListings[i].address;
             bedIcon.src = "../resources/BUYER ICONS AND LOGOS/green bed.png";
             bedIcon.alt = "Bed icon";
@@ -440,6 +433,8 @@ async function landListings() {
                             savedIcon.src = "../resources/BUYER ICONS AND LOGOS/whole heart.png";
                             savedIcon.alt = "Heart icon filled";
                             savedIcon.type = "";
+
+                            break;
                         };
                     };
                 } else {
@@ -537,8 +532,8 @@ async function landListings() {
 
             more.classList.add('more');
             ViewSimilarProperties.innerHTML = "View Similar Properties";
-            scheduleTour.href = "";
-            scheduleTour.innerHTML = "Schedule Tour";
+            scheduleTour.href = "./contactPage.html";
+            scheduleTour.innerHTML = "Call for a Tour";
 
             property.appendChild(more);
             more.appendChild(ul);
@@ -681,7 +676,7 @@ async function landListings() {
             imageContainerModal.appendChild(status);
             
             const priceModal = document.createElement('p');
-            priceModal.innerHTML = "&#8369;" + data.landListings[i].price_formated;
+            priceModal.innerHTML = "&#8369;" + data.landListings[i].price_formatted;
             details.appendChild(priceModal);
 
 
@@ -772,7 +767,7 @@ async function landListings() {
             bathrRoomsCount.innerHTML = data.landListings[i].bath_count;
             area.innerHTML = "Area";
             measurments.classList.add('measurements');
-            measurments.innerHTML = data.landListings[i].area + "sq";
+            measurments.innerHTML = data.landListings[i].area_formatted + "sq";
             images.classList.add('images');
 
             details.appendChild(propertyType);
@@ -1001,9 +996,6 @@ async function landListings() {
 landListings().catch(console.error);
 
 document.querySelector('select[name="Land type"]').addEventListener("change", landListings);
-
-document.querySelector('input[name="Number of bedrooms"]').addEventListener("input", landListings);
-document.querySelector('input[name="Number of bathrooms"]').addEventListener("input", landListings);
 
     //  UPDATE THE selectQuery ONCE THE WHOLE FILTER RESETS.
 function selectLocation() {

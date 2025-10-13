@@ -85,7 +85,7 @@ async function featuredHouseListings() {
         propertyImage.type = "";
         removeDelete.innerHTML = "x";
         removeDelete.classList.add('removeDelete');
-        price.innerHTML = "&#8369;" + data.featuredHouseListings[i].price_formated;
+        price.innerHTML = "&#8369;" + data.featuredHouseListings[i].price_formatted;
         address.innerHTML = data.featuredHouseListings[i].address;
         bedIcon.src = "../resources/AGENT ICONS/bed.png";
         bedIcon.alt = "Bed icon";
@@ -237,7 +237,7 @@ async function featuredHouseListings() {
         imageContainerModal.appendChild(status);
             
         const priceModal = document.createElement('p');
-        priceModal.innerHTML = "&#8369;" + data.featuredHouseListings[i].price_formated;
+        priceModal.innerHTML = "&#8369;" + data.featuredHouseListings[i].price_formatted;
         details.appendChild(priceModal);
           
             
@@ -298,7 +298,7 @@ async function featuredHouseListings() {
         bathrRoomsCount.innerHTML = data.featuredHouseListings[i].bath_count;
         area.innerHTML = "Area";
         measurments.classList.add('measurements');
-        measurments.innerHTML = data.featuredHouseListings[i].area + "sq";
+        measurments.innerHTML = data.featuredHouseListings[i].area_formatted + "sq";
         images.classList.add('images');
 
         details.appendChild(propertyType);

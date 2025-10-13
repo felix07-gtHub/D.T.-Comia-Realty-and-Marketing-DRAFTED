@@ -87,7 +87,7 @@ async function landListings2() {
         propertyImage.type = "";
         removeDelete.innerHTML = "x";
         removeDelete.classList.add('removeDelete');
-        price.innerHTML = "&#8369;" + data.landListings[i].price_formated;
+        price.innerHTML = "&#8369;" + data.landListings[i].price_formatted;
         address.innerHTML = data.landListings[i].address;
         bedIcon.src = "";
         bedIcon.alt = "Bed icon";
@@ -242,7 +242,7 @@ async function landListings2() {
         imageContainerModal.appendChild(status);
             
         const priceModal = document.createElement('p');
-        priceModal.innerHTML = "&#8369;" + data.landListings[i].price_formated;
+        priceModal.innerHTML = "&#8369;" + data.landListings[i].price_formatted;
         details.appendChild(priceModal);
             
             
@@ -304,7 +304,7 @@ async function landListings2() {
         bathrRoomsCount.innerHTML = data.landListings[i].bath_count;
         area.innerHTML = "Area";
         measurments.classList.add('measurements');
-        measurments.innerHTML = data.landListings[i].area + "sq";
+        measurments.innerHTML = data.landListings[i].area_formatted + "sq";
         images.classList.add('images');
 
         details.appendChild(propertyType);
