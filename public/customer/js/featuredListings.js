@@ -6,7 +6,7 @@ async function featuredProperty() {
     });
     const data = await response.json();
 
-    consolo.log(data);
+    console.log(data);
 
     const listings = document.querySelector('#featuredListings');
 
