@@ -91,7 +91,7 @@ async function submitButton() {
     const newPasswordInput = newPasswordInputField.children[1].value;
     const confirmPasswordInput = confirmPasswordInputField.children[1].value;
 
-    const response = await fetch('https://artclassic-production.up.railway.app/password-change', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/password-change', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

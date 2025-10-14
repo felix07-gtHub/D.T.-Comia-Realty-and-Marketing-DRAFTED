@@ -1,6 +1,6 @@
     //  .
 async function featuredLandListings() {    
-    const response = await fetch('https://artclassic-production.up.railway.app/featured-land-listings', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/featured-land-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -117,7 +117,7 @@ async function featuredLandListings() {
         async function removeFeatured() {
             const propertyIdInput = data.featuredLandListings[i].property_id;
     
-            const response = await fetch('https://artclassic-production.up.railway.app/remove-featured', {
+            const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/remove-featured', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',
@@ -253,7 +253,7 @@ async function featuredLandListings() {
         async function markSoldunction() {
             const propertyIdInput = data.featuredLandListings[i].property_id;
 
-            const response = await fetch('https://artclassic-production.up.railway.app/mark-sold', {
+            const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/mark-sold', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',

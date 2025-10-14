@@ -1,6 +1,6 @@
     //  GET EVERY FEATURED PROPERTY.
 async function featuredProperty() { 
-    const response = await fetch('https://artclassic-production.up.railway.app/featured-property', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/featured-property', {
         method: "GET",
         credentials: "include"
     });
@@ -254,7 +254,7 @@ async function featuredProperty() {
                 async function savedFunction(){
                     const propertyIdInput = savedInput.value;
 
-                    await fetch('https://artclassic-production.up.railway.app/saved', {
+                    await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/saved', {
                         method: 'POST',
                         headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -315,7 +315,7 @@ async function featuredProperty() {
             async function showModal() {        
                 const propertyIdInput = data.featuredPropertyListings[i].property_id;
             
-                await fetch('https://artclassic-production.up.railway.app/history', {
+                await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/history', {
                     method: 'POST',
                     headers: {
                                 'User-Agent': 'undici-stream-example',

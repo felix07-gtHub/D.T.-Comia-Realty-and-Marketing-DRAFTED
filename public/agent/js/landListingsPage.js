@@ -1,6 +1,6 @@
     //  FUNCTION FOR ADDING A FEATURED PROPERTY.
 async function addFeaturedFunction(propertyIdInput) {
-    const response = await fetch('https://artclassic-production.up.railway.app/add-featured', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/add-featured', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

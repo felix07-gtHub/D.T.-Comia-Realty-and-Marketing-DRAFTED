@@ -1,6 +1,6 @@
     //  GET THE USER.
 async function user() {
-    const response = await fetch('https://artclassic-production.up.railway.app/user', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/user', {
         method: "GET",
         credentials: "include"
     });

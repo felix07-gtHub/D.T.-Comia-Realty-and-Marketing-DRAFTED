@@ -13,7 +13,7 @@ if(window.location.search != '') {
 
     //  FUNCTION FOR VERIFYING EMAIL.
 async function emailVerification() {
-    const response = await fetch('https://artclassic-production.up.railway.app/email-verification', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/email-verification', {
         method: 'POST',
         headers: {
         'User-Agent': 'undici-stream-example',
@@ -40,7 +40,7 @@ async function emailVerification() {
             if(dateAttempted < d) { 
                     //  FUNCTION FOR SENDING EMAIL.
                 async function emailSender() {
-                    const response = await fetch('https://artclassic-production.up.railway.app/email-verification-link', {
+                    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/email-verification-link', {
                         method: 'POST',
                         headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -97,7 +97,7 @@ async function emailVerification() {
         } else {
                 //  FUNCTION FOR SENDING EMAIL.
             async function emailSender() {
-                const response = await fetch('https://artclassic-production.up.railway.app/email-verification-link', {
+                const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/email-verification-link', {
                     method: 'POST',
                     headers: {
                                 'User-Agent': 'undici-stream-example',

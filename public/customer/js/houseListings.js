@@ -46,7 +46,7 @@ if(window.location.search != '') {
 
     //  ADDS THE NEW LOCATION TO SELECT OPTION.
 async function selectFunction() {        
-    const response = await fetch('https://artclassic-production.up.railway.app/select-location', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/select-location', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -271,7 +271,7 @@ async function houseListings() {
         maxRangeInput = parseInt((maxRange.value) - 53) * 1000000000;
     };
     
-    const response = await fetch('https://artclassic-production.up.railway.app/house-listings', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/house-listings', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -453,7 +453,7 @@ async function houseListings() {
                 async function savedFunction(){
                     const propertyIdInput = savedInput.value;
 
-                    await fetch('https://artclassic-production.up.railway.app/saved', {
+                    await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/saved', {
                         method: 'POST',
                         headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -513,7 +513,7 @@ async function houseListings() {
             async function showModal() {                 
                 const propertyIdInput = data.houseListings[i].property_id;
 
-                await fetch('https://artclassic-production.up.railway.app/history', {
+                await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/history', {
                     method: 'POST',
                     headers: {
                                 'User-Agent': 'undici-stream-example',

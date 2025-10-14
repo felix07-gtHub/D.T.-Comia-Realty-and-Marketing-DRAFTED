@@ -190,7 +190,7 @@ document.querySelector('#toursReservations > div:nth-child(4) > #sort > ul').add
 
     //  .
 async function historyListings() {    
-    const response = await fetch('https://artclassic-production.up.railway.app/tour-reservation-history', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/tour-reservation-history', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

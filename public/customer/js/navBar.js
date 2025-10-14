@@ -49,7 +49,7 @@ const nav = document.querySelector('nav');
 
     //  GET THE USER.
 async function user() {
-    const response = await fetch('https://artclassic-production.up.railway.app/user', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/user', {
         method: "GET",
         credentials: "include"
     });
@@ -180,7 +180,7 @@ async function user() {
 
                 //  DELETE THE USER SESSION.
             async function logOutFunction(e) {
-                const response = await fetch('https://artclassic-production.up.railway.app/log-out', {
+                const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/log-out', {
                     method: "GET",
                     credentials: "include"
                 });

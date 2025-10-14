@@ -82,7 +82,7 @@ async function submitButton() {
     const accountInput = accountInputField.children[1].value;
     const passwordInput = passwordInputField.children[1].value;
 
-    const response = await fetch('https://artclassic-production.up.railway.app/log-in', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/log-in', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

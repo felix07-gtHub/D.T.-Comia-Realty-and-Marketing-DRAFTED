@@ -34,7 +34,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false }
 }))
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 

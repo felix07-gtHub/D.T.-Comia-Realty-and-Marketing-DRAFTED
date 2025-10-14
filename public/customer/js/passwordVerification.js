@@ -12,7 +12,7 @@ if(window.location.search != '') {
 
     //  FUNCTION FOR VERIFYING PASSWORD FORGET TOKEN.
 async function passwordForgetToken() {
-    const response = await fetch('https://artclassic-production.up.railway.app/password-verification', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/password-verification', {
         method: 'POST',
         headers: {
         'User-Agent': 'undici-stream-example',
@@ -38,7 +38,7 @@ async function passwordForgetToken() {
             if(dateAttempted < d) { 
                     //  FUNCTION FOR SENDING EMAIL.
                 async function emailSender() {
-                    const response = await fetch('https://artclassic-production.up.railway.app/password-change-link', {
+                    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/password-change-link', {
                         method: 'POST',
                         headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -95,7 +95,7 @@ async function passwordForgetToken() {
         } else {
                 //  FUNCTION FOR SENDING EMAIL.
             async function emailSender() {
-                const response = await fetch('https://artclassic-production.up.railway.app/password-change-link', {
+                const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/password-change-link', {
                     method: 'POST',
                     headers: {
                                 'User-Agent': 'undici-stream-example',

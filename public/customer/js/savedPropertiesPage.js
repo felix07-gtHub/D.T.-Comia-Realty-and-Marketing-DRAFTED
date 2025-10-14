@@ -179,7 +179,7 @@ history.addEventListener("click", toggleHistoryFunction);
 
     //  .
 async function savedPropertiesListings() {    
-    const response = await fetch('https://artclassic-production.up.railway.app/saved-property', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/saved-property', {
         method: 'GET',
         credentials: "include",
     });
@@ -335,7 +335,7 @@ async function savedPropertiesListings() {
                     async function savedFunction(){
                         const propertyIdInput = savedInput.value;
 
-                        await fetch('https://artclassic-production.up.railway.app/saved', {
+                        await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/saved', {
                             method: 'POST',
                             headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -370,7 +370,7 @@ async function savedPropertiesListings() {
                     async function showModal() {     
                         const propertyIdInput = data.propertyListings[j].property_id;
 
-                        await fetch('https://artclassic-production.up.railway.app/history', {
+                        await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/history', {
                             method: 'POST',
                             headers: {
                                     'User-Agent': 'undici-stream-example',
@@ -873,7 +873,7 @@ savedPropertiesListings().catch(console.error);
 
     //  FUNCTION FOR DELETING SAVED.
 async function deleteAll(propertyIdInput) {
-    const response = await fetch('https://artclassic-production.up.railway.app/delete-All-Saved', {
+    const response = await fetch('https://dt-comia-realty-and-marketing-production.up.railway.app/delete-All-Saved', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
