@@ -624,7 +624,7 @@ app.post('/email-verification-link', (req, res) => {
                                   d.getSeconds().toString().padStart(2, "0");
 
                 //  INSERT PROXY USER QUERY.
-              const insertProxyUserQuery = 'INSERT INTO proxy_user_table (first_name, last_name, email_address, password, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              const insertProxyUserQuery = 'INSERT INTO proxy_user_table (first_name, last_name, email_address, password, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
                 //  VALUE FOR insertProxyUserValue.
               const insertProxyUserValue = [
@@ -932,7 +932,7 @@ app.post('/email-verification', (req, res) => {
               link = "https://dt-comia-realty-and-marketing-production.up.railway.app/customer/logIn.html";
 
                 //  INSERT USER QUERY.
-              const insertUserQuery = 'INSERT INTO main_user_table (user_id, type_of_user, first_name, last_name, user_name, email_address, recovery_email_address, password, date_joined) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+              const insertUserQuery = 'INSERT INTO main_user_table (user_id, type_of_user, first_name, last_name, user_name, email_address, recovery_email_address, password, date_joined) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
                 //  VALUE FOR insertProxyUserValue.
               const insertUserValue = [
