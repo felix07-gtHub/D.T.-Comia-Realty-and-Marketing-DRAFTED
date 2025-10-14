@@ -8,7 +8,6 @@ const fs = require('node:fs');
 const nodemailer = require("nodemailer");
 const session = require('express-session');
 const path = require('path');
-const Brevo = require('@getbrevo/brevo');
 
 const connection = mysql.createConnection({
   host: 'maglev.proxy.rlwy.net',
@@ -21,11 +20,16 @@ const connection = mysql.createConnection({
 const app = express();
 const hostname = '0.0.0.0';
 const port = 3000;
-const defaultClient = Brevo.ApiClient.instance;
-const apiInstance = new TransactionalEmailsApi();
-// Configure API key authorization: api-key
-const  apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = BREVO_SMTP_KEY;
+
+  //  .
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "olan.johnfelix@gmail.com",
+    pass: "nxjb fkyd ebky kswc",
+  },
+});
+
 
 
 app.use(bodyParser.json());
@@ -46,28 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 connection.connect();
 
 
-
-  //  .
-async function sendEmail({ toEmail, toName, htmlContent}) {
-  const sendSmtpEmail = new Brevo.SendSmtpEmail({
-    "sender": {email: "olan.johnfelix@gmail.com", name: "D.T. Comia Realty and Marketing"},
-    "to":[
-            {
-                "email": toEmail,
-                "name:": toName
-            }
-         ],
-    "subject": "Hello ✔",
-    "textContent": "Hello world?", // plain‑text body
-    "htmlContent": htmlContent, // HTML body
-  });
-
-  apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
-    console.log('API called successfully. Returned data: ' + data);
-  }, function(error) {
-    console.error(error);
-  });
-}
 
   //  SIGN UP.
 app.post('/sign-up', (req, res) => {
@@ -297,19 +279,13 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                    console.log('Email sent:', info.response);
-                  } catch (error) {
-                    console.error('Send mail error:', error);
-                  }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -393,19 +369,13 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                    console.log('Email sent:', info.response);
-                  } catch (error) {
-                    console.error('Send mail error:', error);
-                  }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -482,11 +452,21 @@ app.post('/sign-up', (req, res) => {
                                               selectProxyUserResult[0].token
                                              ];
 
-                //  connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-                  //  if(err) {throw err};
+                connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
+                  if(err) {throw err};
 
                     //  .
-                  sendEmail({toEmail: emailAddressInput, toName: firstNameInput + ' ' + lastNameInput, htmlContent: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>"});
+                  async function emailSender() {
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
+                  };
+
+                  emailSender().catch(console.err);
 
                   res.json({
                             firstName: firstName2,
@@ -497,7 +477,7 @@ app.post('/sign-up', (req, res) => {
 
                 });
 
-              //  });
+              });
 
             } else {
               const dateAttempted = selectProxyUserResult[0].date_attempted;
@@ -571,19 +551,13 @@ app.post('/sign-up', (req, res) => {
 
                 //  .
               async function emailSender() {
-                try {
-                  const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                    to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
-                    subject: "Hello ✔",
-                    text: "Hello world?", // plain‑text body
-                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                  }); 
-
-                  console.log('Email sent:', info.response);
-                } catch (error) {
-                  console.error('Send mail error:', error);
-                }
+                const info = await transporter.sendMail({
+                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                  to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
+                  subject: "Hello ✔",
+                  text: "Hello world?", // plain‑text body
+                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                }); 
               };
 
               emailSender().catch(console.err);
