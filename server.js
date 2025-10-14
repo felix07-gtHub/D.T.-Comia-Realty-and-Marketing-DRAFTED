@@ -7,7 +7,6 @@ const multer  = require('multer');
 const fs = require('node:fs');
 const session = require('express-session');
 const path = require('path');
-const session = require('express-session');
 const Brevo = require('@getbrevo/brevo');
 
 const connection = mysql.createConnection({
