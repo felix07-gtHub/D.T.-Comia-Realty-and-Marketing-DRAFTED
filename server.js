@@ -34,6 +34,8 @@ app.use(session({
   cookie: { secure: false }
 }))
 
+app.use('/customer', express.static(path.join(__dirname, 'customer')));
+
 
 
 connection.connect();
@@ -4802,3 +4804,4 @@ app.post('/delete-thirty-days-property', (req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
