@@ -11,7 +11,7 @@ const path = require('path');
 
 const connection = mysql.createConnection({
   host: 'mysql.railway.internal',
-  port: '3306',
+  port: '48611',
   user: 'root',
   password: 'MIHLBZEpjZocmZtlrpXkLJyTSiLhbpmY',
   database: 'railway'
