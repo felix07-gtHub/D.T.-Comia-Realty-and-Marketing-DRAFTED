@@ -36,7 +36,6 @@ app.use(session({
 }))
 
 app.use(express.static(path.join(__dirname, 'customer')));
-app.use(express.static(path.join(__dirname, 'resources')));
 
 
 
