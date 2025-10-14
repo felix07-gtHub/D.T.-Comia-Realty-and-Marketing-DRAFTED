@@ -284,7 +284,7 @@ app.post('/sign-up', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -374,7 +374,7 @@ app.post('/sign-up', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -462,7 +462,7 @@ app.post('/sign-up', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -556,7 +556,7 @@ app.post('/sign-up', (req, res) => {
                   to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
                   subject: "Hello ✔",
                   text: "Hello world?", // plain‑text body
-                  html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                 }); 
               };
 
@@ -687,7 +687,7 @@ app.post('/email-verification-link', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -788,7 +788,7 @@ app.post('/email-verification-link', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -887,7 +887,7 @@ app.post('/email-verification-link', (req, res) => {
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
                     }); 
                   };
 
@@ -992,7 +992,7 @@ app.post('/email-verification', (req, res) => {
               };
 
               text = "Your account has been successfully verified.";
-              link = "http://127.0.0.1:3001/html/SE1/GROUP%202/customer/logIn.html";
+              link = "https://dt-comia-realty-and-marketing-production.up.railway.app/customer/logIn.html";
 
                 //  INSERT USER QUERY.
               const insertUserQuery = 'INSERT INTO main_user_table (user_id, type_of_user, first_name, last_name, user_name, email_address, recovery_email_address, password, date_joined) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
@@ -1398,7 +1398,7 @@ app.post('/forgot-password', (req, res) => {
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                     }); 
                   };
 
@@ -1483,7 +1483,7 @@ app.post('/forgot-password', (req, res) => {
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                     }); 
                   };
 
@@ -1566,7 +1566,7 @@ app.post('/forgot-password', (req, res) => {
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
-                      html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                     }); 
                   };
 
@@ -1654,7 +1654,7 @@ app.post('/forgot-password', (req, res) => {
                   to: selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name + ", " + selectUserResult[0].recovery_email_address,
                   subject: "Hello ✔",
                   text: "Hello world?", // plain‑text body
-                  html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                 }); 
               };
 
@@ -1764,7 +1764,7 @@ app.post('/password-change-link', (req, res) => {
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
-                    html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                   }); 
                 };
 
@@ -1851,7 +1851,7 @@ app.post('/password-change-link', (req, res) => {
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
-                    html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                   }); 
                 };
 
@@ -1936,7 +1936,7 @@ app.post('/password-change-link', (req, res) => {
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
-                    html: "<a href='http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordVerifivation.html</a>", // HTML body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
                   }); 
                 };
 
@@ -2000,7 +2000,7 @@ app.post('/password-verification', (req, res) => {
 
           } else {
             text = "Password verified.";
-            link = "http://127.0.0.1:3001/html/SE1/GROUP%202/customer/passwordChange.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + selectForgetPasswordResult[0].token;
+            link = "https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordChange.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + selectForgetPasswordResult[0].token;
             
             res.json({text: text, link: link});
           };
