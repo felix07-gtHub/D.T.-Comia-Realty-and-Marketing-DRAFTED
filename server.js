@@ -48,7 +48,7 @@ connection.connect();
 
 
   //  .
-async function sendEmail({ toEmail, toName, subject, htmlContent}) {
+async function sendEmail({ toEmail, toName, htmlContent}) {
   const email = new Brevo.SendSmtpEmail({
     "sender": {email: "olan.johnfelix@gmail.com", name: "D.T. Comia Realty and Marketing"},
     "to":[
