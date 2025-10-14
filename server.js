@@ -6,7 +6,7 @@ const cors = require('cors');
 const multer  = require('multer');
 const fs = require('node:fs');
 const nodemailer = require("nodemailer");
-const session = require('cookie-session');
+const session = require('express-session');
 
 const connection = mysql.createConnection({
   host: '127.0.0.1',
