@@ -596,7 +596,7 @@ async function saveFunction() {
                 SINCE IT WAS STORED AS JSON LIKE STRUCTURE
                 THERE'S NO NEED TO CONVERT IT INTO JSON FILE.
             */
-        const response = await fetch('http://127.0.0.1:3000/add-house', {
+        const response = await fetch('https://artclassic-production.up.railway.app/add-house', {
             method: 'POST',
             headers: {                    
                         'User-Agent': 'undici-stream-example'

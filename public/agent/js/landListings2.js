@@ -1,7 +1,7 @@
 
 //  .
 async function landListings2() {    
-    const response = await fetch('http://127.0.0.1:3000/land-listings-2', {
+    const response = await fetch('https://artclassic-production.up.railway.app/land-listings-2', {
         method: 'GET',
         credentials: "include",
     });
@@ -123,7 +123,7 @@ async function landListings2() {
         async function deleteProperty() {
             const propertyIdInput = data.landListings[i].property_id;
     
-            const response = await fetch('http://127.0.0.1:3000/delete-property', {
+            const response = await fetch('https://artclassic-production.up.railway.app/delete-property', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',
@@ -259,7 +259,7 @@ async function landListings2() {
         async function markSoldunction() {
             const propertyIdInput = data.landListings[i].property_id;
 
-            const response = await fetch('http://127.0.0.1:3000/mark-sold', {
+            const response = await fetch('https://artclassic-production.up.railway.app/mark-sold', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',

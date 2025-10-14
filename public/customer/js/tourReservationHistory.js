@@ -190,7 +190,7 @@ document.querySelector('#toursReservations > div:nth-child(4) > #sort > ul').add
 
     //  .
 async function historyListings() {    
-    const response = await fetch('http://127.0.0.1:3000/tour-reservation-history', {
+    const response = await fetch('https://artclassic-production.up.railway.app/tour-reservation-history', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

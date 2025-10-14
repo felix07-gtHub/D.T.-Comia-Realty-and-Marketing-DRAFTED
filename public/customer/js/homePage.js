@@ -1,6 +1,6 @@
     //  GET THE USER.
 async function user() {
-    const response = await fetch('http://127.0.0.1:3000/user', {
+    const response = await fetch('https://artclassic-production.up.railway.app/user', {
         method: "GET",
         credentials: "include"
     });

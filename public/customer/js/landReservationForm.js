@@ -24,7 +24,7 @@ if(window.location.search != '') {
 
     //  FUNCTION FOR PROPERTY INFORMATION.
 async function propertyInformation() {
-    const response = await fetch('http://127.0.0.1:3000/property-information', {
+    const response = await fetch('https://artclassic-production.up.railway.app/property-information', {
         method: 'POST',
         headers: {
                     'User-Agent': 'undici-stream-example',
@@ -101,7 +101,7 @@ async function finishReservationFunction() {
     const reservataionPeriodFromInput = reservataionPeriodFrom.value;
     const reservataionPeriodToInput = reservataionPeriodTo.value;
 
-    const response = await fetch('http://127.0.0.1:3000/reservation', {
+    const response = await fetch('https://artclassic-production.up.railway.app/reservation', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

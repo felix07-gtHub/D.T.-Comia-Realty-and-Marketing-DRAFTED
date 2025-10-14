@@ -1,6 +1,6 @@
     //  FUNCTION FOR deleteThirtyDaysProperty.
 async function deleteThirtyDaysProperty(propertyIdInput) {
-    const response = await fetch('http://127.0.0.1:3000/delete-thirty-days-property', {
+    const response = await fetch('https://artclassic-production.up.railway.app/delete-thirty-days-property', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -16,7 +16,7 @@ const listings = document.querySelector('#deletedListings');
 
     //  .
 async function deletedListings() {    
-    const response = await fetch('http://127.0.0.1:3000/deleted-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/deleted-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -637,7 +637,7 @@ selectAll.addEventListener("click", selectAllFunction);
 
     //  FUNCTION FOR RESTORING PROPERTY.
 async function restoreAll(propertyIdInput) {
-    const response = await fetch('http://127.0.0.1:3000/restore-all-property', {
+    const response = await fetch('https://artclassic-production.up.railway.app/restore-all-property', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -695,7 +695,7 @@ document.querySelector('#restoreAll').addEventListener("click", restoreAllFuncti
 
     //  FUNCTION FOR DELETING PROPERTY.
 async function deleteAll(propertyIdInput) {
-    const response = await fetch('http://127.0.0.1:3000/delete-all-property', {
+    const response = await fetch('https://artclassic-production.up.railway.app/delete-all-property', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

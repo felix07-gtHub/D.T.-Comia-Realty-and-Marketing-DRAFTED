@@ -1,6 +1,6 @@
     //  .
 async function featuredHouseListings() {    
-    const response = await fetch('http://127.0.0.1:3000/featured-house-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/featured-house-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -117,7 +117,7 @@ async function featuredHouseListings() {
         async function removeFeatured() {
             const propertyIdInput = data.featuredHouseListings[i].property_id;
     
-            const response = await fetch('http://127.0.0.1:3000/remove-featured', {
+            const response = await fetch('https://artclassic-production.up.railway.app/remove-featured', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',
@@ -253,7 +253,7 @@ async function featuredHouseListings() {
         async function markSoldunction() {
             const propertyIdInput = data.featuredHouseListings[i].property_id;
 
-            const response = await fetch('http://127.0.0.1:3000/mark-sold', {
+            const response = await fetch('https://artclassic-production.up.railway.app/mark-sold', {
                 method: 'POST',
                 headers: {                    
                             'User-Agent': 'undici-stream-example',

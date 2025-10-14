@@ -5,7 +5,7 @@ let sortInput = "All";
 
     //  .
 async function activeListings() {    
-    const response = await fetch('http://127.0.0.1:3000/tour-reservation-active', {
+    const response = await fetch('https://artclassic-production.up.railway.app/tour-reservation-active', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -484,7 +484,7 @@ async function activeListings() {
                             const propertyIdInput = data.reservationListings[j].property_id;
                             const reservationIdInput = data.reservationListings[j].reservation_id;
 
-                            const response = await fetch('http://127.0.0.1:3000/cancel-reservation', {
+                            const response = await fetch('https://artclassic-production.up.railway.app/cancel-reservation', {
                                 method: 'POST',
                                 headers: {                
                                             'User-Agent': 'undici-stream-example',

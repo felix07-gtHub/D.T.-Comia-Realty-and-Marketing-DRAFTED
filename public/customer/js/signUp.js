@@ -131,7 +131,7 @@ async function submitButton() {
     const emailAddressInput = email.value;
     const passwordInput = password.value;
 
-    const response = await fetch('http://127.0.0.1:3000/sign-up', {
+    const response = await fetch('https://artclassic-production.up.railway.app/sign-up', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',

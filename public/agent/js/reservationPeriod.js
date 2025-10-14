@@ -1,6 +1,6 @@
     //  .
 async function allReservationListings() {  
-    const response = await fetch('http://127.0.0.1:3000/all-reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/all-reservation-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -17,7 +17,7 @@ allReservationListings().catch(console.error);
 
     //  .
 async function onGoingReservationListings() {  
-    const response = await fetch('http://127.0.0.1:3000/on-going-reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/on-going-reservation-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -34,7 +34,7 @@ onGoingReservationListings().catch(console.error);
 
     //  .
 async function completedReservationListings() {  
-    const response = await fetch('http://127.0.0.1:3000/completed-reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/completed-reservation-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -51,7 +51,7 @@ completedReservationListings().catch(console.error);
 
     //  .
 async function cancelledReservationListings() {  
-    const response = await fetch('http://127.0.0.1:3000/cancelled-reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/cancelled-reservation-listings', {
         method: 'GET',
         credentials: "include",
     });
@@ -105,7 +105,7 @@ document.querySelector('#reservationPeriod > div:nth-child(3) > div:nth-child(2)
 
     //  .
 async function reservationListings() {  
-    const response = await fetch('http://127.0.0.1:3000/reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/reservation-listings', {
         method: 'POST',
         headers: {                    
                     'User-Agent': 'undici-stream-example',
@@ -469,7 +469,7 @@ async function reservationListings() {
                     const contactNoInput = contactNo.value;
                     const reservedUntilInput = reservedUntil.value;
 
-                    const response = await fetch('http://127.0.0.1:3000/edit-info', {
+                    const response = await fetch('https://artclassic-production.up.railway.app/edit-info', {
                     method: 'POST',
                     headers: {                
                                 'User-Agent': 'undici-stream-example',
@@ -570,7 +570,7 @@ async function reservationListings() {
             if(statusInput != "Cancelled") {
                 const reasonCancellingInput = null;
 
-                const response = await fetch('http://127.0.0.1:3000/change-status', {
+                const response = await fetch('https://artclassic-production.up.railway.app/change-status', {
                     method: 'POST',
                     headers: {                
                                 'User-Agent': 'undici-stream-example',
@@ -666,7 +666,7 @@ async function reservationListings() {
                                 if(cancelTourUl.children[j].children[0].children[0].value != "Other") {
                                     const reasonCancellingInput = cancelTourUl.children[j].children[0].children[0].value;
 
-                                    const response = await fetch('http://127.0.0.1:3000/change-status', {
+                                    const response = await fetch('https://artclassic-production.up.railway.app/change-status', {
                                         method: 'POST',
                                         headers: {                
                                                     'User-Agent': 'undici-stream-example',
@@ -686,7 +686,7 @@ async function reservationListings() {
                                 } else {
                                     const reasonCancellingInput = cancelTourUl.children[j].children[0].children[2].value;
 
-                                    const response = await fetch('http://127.0.0.1:3000/change-status', {
+                                    const response = await fetch('https://artclassic-production.up.railway.app/change-status', {
                                         method: 'POST',
                                         headers: {                
                                                     'User-Agent': 'undici-stream-example',
@@ -725,7 +725,7 @@ async function reservationListings() {
         async function addToArchiveList() {
             const reservationIdInput = data.reservationListings[i].reservation_id;
 
-            const response = await fetch('http://127.0.0.1:3000/reservation-archive', {
+            const response = await fetch('https://artclassic-production.up.railway.app/reservation-archive', {
                 method: 'POST',
                 headers: {                
                             'User-Agent': 'undici-stream-example',
@@ -782,7 +782,7 @@ async function reservationListings() {
             const reservationIdInput = data.reservationListings[i].reservation_id;
             const noteInput = addNoteTextarea.value;
 
-            const response = await fetch('http://127.0.0.1:3000/add-note', {
+            const response = await fetch('https://artclassic-production.up.railway.app/add-note', {
                 method: 'POST',
                 headers: {                
                             'User-Agent': 'undici-stream-example',
@@ -809,7 +809,7 @@ reservationListings().catch(console.error);
 
     //  .
 async function pageNumbers() {  
-    const response = await fetch('http://127.0.0.1:3000/all-reservation-listings', {
+    const response = await fetch('https://artclassic-production.up.railway.app/all-reservation-listings', {
         method: 'GET',
         credentials: "include",
     });
