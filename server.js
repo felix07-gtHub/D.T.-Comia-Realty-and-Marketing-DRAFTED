@@ -7,6 +7,7 @@ const multer  = require('multer');
 const fs = require('node:fs');
 const nodemailer = require("nodemailer");
 const session = require('express-session');
+const path = require('path');
 
 const connection = mysql.createConnection({
   host: 'mysql.railway.internal',
@@ -4804,5 +4805,6 @@ app.post('/delete-thirty-days-property', (req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
 
 
