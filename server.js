@@ -10,7 +10,7 @@ const session = require('express-session');
 
 const connection = mysql.createConnection({
   host: 'mysql.railway.internal',
-  port: '3306';
+  port: '3306',
   user: 'root',
   password: 'MIHLBZEpjZocmZtlrpXkLJyTSiLhbpmY',
   database: 'railway'
