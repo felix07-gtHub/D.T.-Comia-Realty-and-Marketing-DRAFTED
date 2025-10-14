@@ -25,7 +25,7 @@ const port = 3000;
   //  .
 const transporter = nodemailer.createTransport(postmarkTransport({
   auth: {
-    apiKey: '9ae8513b2d112c745bed007716b8c20e-us10'
+    apiKey: process.env.POSTMARK_API_TOKEN
   }
 }));
 
