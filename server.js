@@ -548,18 +548,24 @@ app.post('/sign-up', (req, res) => {
                                           null
                                          ];
 
-            connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-              if(err) {throw err};
+            //  connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
+              //  if(err) {throw err};
 
                 //  .
               async function emailSender() {
-                const info = await transporter.sendMail({
-                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                  to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
-                  subject: "Hello ✔",
-                  text: "Hello world?", // plain‑text body
-                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                }); 
+                try {
+                  const info = await transporter.sendMail({
+                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
+                    subject: "Hello ✔",
+                    text: "Hello world?", // plain‑text body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                  }); 
+
+                  console.log('Email sent:', info.response);
+                } catch (error) {
+                  console.error('Send mail error:', error);
+                }
               };
 
               emailSender().catch(console.err);
@@ -571,7 +577,7 @@ app.post('/sign-up', (req, res) => {
                         password: password
                       });
 
-            });
+            //  });
 
           });
 
