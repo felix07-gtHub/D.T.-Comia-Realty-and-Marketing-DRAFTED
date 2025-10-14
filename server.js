@@ -25,7 +25,6 @@ const port = 3000;
 const transporter = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
   port: 587,            // or 465 depending on your preference
-  secure: false,        // true for 465, false for 587 (with STARTTLS)
   auth: {
     user: process.env.BREVO_SMTP_USER,   // find in Brevo SMTP settings
     pass: process.env.BREVO_SMTP_KEY     // the SMTP key/password
@@ -281,13 +280,19 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                    }); 
+                    try {
+                      const info = await transporter.sendMail({
+                        from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                        subject: "Hello ✔",
+                        text: "Hello world?", // plain‑text body
+                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                      }); 
+
+                    console.log('Email sent:', info.response);
+                  } catch (error) {
+                    console.error('Send mail error:', error);
+                  }
                   };
 
                   emailSender().catch(console.err);
@@ -371,13 +376,19 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                    }); 
+                    try {
+                      const info = await transporter.sendMail({
+                        from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                        subject: "Hello ✔",
+                        text: "Hello world?", // plain‑text body
+                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                      }); 
+
+                    console.log('Email sent:', info.response);
+                  } catch (error) {
+                    console.error('Send mail error:', error);
+                  }
                   };
 
                   emailSender().catch(console.err);
@@ -459,13 +470,19 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
-                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                    }); 
+                    try{
+                      const info = await transporter.sendMail({
+                        from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                        subject: "Hello ✔",
+                        text: "Hello world?", // plain‑text body
+                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                      }); 
+
+                    console.log('Email sent:', info.response);
+                  } catch (error) {
+                    console.error('Send mail error:', error);
+                  }
                   };
 
                   emailSender().catch(console.err);

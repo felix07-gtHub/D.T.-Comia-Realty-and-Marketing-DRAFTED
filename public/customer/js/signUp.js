@@ -265,7 +265,7 @@ async function submitButton() {
             email.value = '';
             password.value = '';
 
-            window.location = "./emailSent.html?emailAddress";
+            //  window.location = "./emailSent.html?emailAddress";
 
         };
 
