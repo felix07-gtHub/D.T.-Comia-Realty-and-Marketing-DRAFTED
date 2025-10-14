@@ -279,7 +279,7 @@ app.post('/sign-up', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -369,7 +369,7 @@ app.post('/sign-up', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -457,7 +457,7 @@ app.post('/sign-up', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -551,7 +551,7 @@ app.post('/sign-up', (req, res) => {
                 //  .
               async function emailSender() {
                 const info = await transporter.sendMail({
-                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                  from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                   to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
                   subject: "Hello ✔",
                   text: "Hello world?", // plain‑text body
@@ -682,7 +682,7 @@ app.post('/email-verification-link', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -783,7 +783,7 @@ app.post('/email-verification-link', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -882,7 +882,7 @@ app.post('/email-verification-link', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -1393,7 +1393,7 @@ app.post('/forgot-password', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -1478,7 +1478,7 @@ app.post('/forgot-password', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -1561,7 +1561,7 @@ app.post('/forgot-password', (req, res) => {
                     //  .
                   async function emailSender() {
                     const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                       to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                       subject: "Hello ✔",
                       text: "Hello world?", // plain‑text body
@@ -1649,7 +1649,7 @@ app.post('/forgot-password', (req, res) => {
                 //  .
               async function emailSender() {
                 const info = await transporter.sendMail({
-                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                  from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                   to: selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name + ", " + selectUserResult[0].recovery_email_address,
                   subject: "Hello ✔",
                   text: "Hello world?", // plain‑text body
@@ -1759,7 +1759,7 @@ app.post('/password-change-link', (req, res) => {
                   //  .
                 async function emailSender() {
                   const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
@@ -1846,7 +1846,7 @@ app.post('/password-change-link', (req, res) => {
                   //  .
                 async function emailSender() {
                   const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
@@ -1931,7 +1931,7 @@ app.post('/password-change-link', (req, res) => {
                   //  .
                 async function emailSender() {
                   const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
                     to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
                     subject: "Hello ✔",
                     text: "Hello world?", // plain‑text body
