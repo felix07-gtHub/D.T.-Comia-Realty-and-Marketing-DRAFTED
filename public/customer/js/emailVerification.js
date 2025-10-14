@@ -1,5 +1,5 @@
-const text = document.querySelector('.main-containe p');
-const link = document.querySelector('.backToLogIn');
+const text = document.querySelector('.main-container p');
+const link = document.querySelector('.main-container a');
 
 let emailAddressInput = '';
 let token = '';
@@ -23,8 +23,6 @@ async function emailVerification() {
         body: JSON.stringify({emailAddressInput, tokenInput}),
     });
     const data = await response.json();  
-    
-    console.log(data)
 
     text.innerHTML = data.text;
 
