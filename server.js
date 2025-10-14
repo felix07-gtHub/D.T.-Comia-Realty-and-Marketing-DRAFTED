@@ -293,7 +293,7 @@ app.post('/sign-up', (req, res) => {
                     }
                   };
 
-                  await await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({
                             firstName: firstName2,
@@ -389,7 +389,7 @@ app.post('/sign-up', (req, res) => {
                     }
                   };
 
-                  await await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({
                             firstName: firstName2,
@@ -483,7 +483,7 @@ app.post('/sign-up', (req, res) => {
                     }
                   };
 
-                  await await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({
                             firstName: firstName2,
@@ -583,7 +583,7 @@ app.post('/sign-up', (req, res) => {
                 }
               };
 
-              await emailSender().catch(console.err);
+              emailSender().catch(console.err);
 
               res.json({
                         firstName: firstName2,
@@ -720,7 +720,7 @@ app.post('/email-verification-link', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -827,7 +827,7 @@ app.post('/email-verification-link', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -932,7 +932,7 @@ app.post('/email-verification-link', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1449,7 +1449,7 @@ app.post('/forgot-password', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1540,7 +1540,7 @@ app.post('/forgot-password', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1629,7 +1629,7 @@ app.post('/forgot-password', (req, res) => {
                     }
                   };
 
-                  await emailSender().catch(console.err);
+                  emailSender().catch(console.err);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1723,7 +1723,7 @@ app.post('/forgot-password', (req, res) => {
                 }
               };
 
-              await emailSender().catch(console.err);
+              emailSender().catch(console.err);
 
               res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1839,7 +1839,7 @@ app.post('/password-change-link', (req, res) => {
                   }
                 };
 
-                await emailSender().catch(console.err);
+                emailSender().catch(console.err);
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1932,7 +1932,7 @@ app.post('/password-change-link', (req, res) => {
                   } 
                 };
 
-                await emailSender().catch(console.err);
+                emailSender().catch(console.err);
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -2023,7 +2023,7 @@ app.post('/password-change-link', (req, res) => {
                   }
                 };
 
-                await emailSender().catch(console.err);
+                emailSender().catch(console.err);
 
                 res.json({emailAddress: emailAddress});
 
