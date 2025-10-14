@@ -6,6 +6,8 @@ async function featuredProperty() {
     });
     const data = await response.json();
 
+    consolo.log(data);
+
     const listings = document.querySelector('#featuredListings');
 
         //  CLEAR THE #listings BEFORE DISPLAYING THE UPDATED PROPERTY LISTINGS.
@@ -168,7 +170,6 @@ async function featuredProperty() {
 
             property.classList.add('property');
             imageContainer.classList.add('imageContainer');
-            console.log(data.featuredPropertyListings[i])
             propertyImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
             propertyImage.alt =  data.featuredPropertyListings[i].main_image;
             propertyImage.type = "";
