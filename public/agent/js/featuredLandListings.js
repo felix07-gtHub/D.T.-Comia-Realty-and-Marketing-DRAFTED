@@ -224,11 +224,11 @@ async function featuredLandListings() {
         const status = document.createElement('p');
 
         status.classList.add('status');
-        status.innerHTML = data.featuredHouseListings[i].status;
+        status.innerHTML = data.featuredLandListings[i].status;
 
-        if(data.featuredHouseListings[i].status == "RESERVED") {
+        if(data.featuredLandListings[i].status == "RESERVED") {
             status.style.backgroundColor = 'red';
-        } else if(data.featuredHouseListings[i].status == "SOLD") {
+        } else if(data.featuredLandListings[i].status == "SOLD") {
             status.style.backgroundColor = 'red';
         } else {
             status.style.backgroundColor = '#6ba460';
