@@ -6,8 +6,6 @@ async function featuredProperty() {
     });
     const data = await response.json();
 
-    console.log(data);
-
     const listings = document.querySelector('#featuredListings');
 
         //  CLEAR THE #listings BEFORE DISPLAYING THE UPDATED PROPERTY LISTINGS.
