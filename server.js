@@ -10,8 +10,8 @@ const session = require('express-session');
 const path = require('path');
 
 const connection = mysql.createConnection({
-  host: 'mysql.railway.internal',
-  port: '3306',
+  host: 'maglev.proxy.rlwy.net',
+  port: '48611',
   user: 'root',
   password: 'MIHLBZEpjZocmZtlrpXkLJyTSiLhbpmY',
   database: 'railway'
