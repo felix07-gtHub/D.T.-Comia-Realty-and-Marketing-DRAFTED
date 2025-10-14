@@ -8,7 +8,6 @@ const fs = require('node:fs');
 const nodemailer = require("nodemailer");
 const session = require('express-session');
 const path = require('path');
-const postmarkTransport = require('nodemailer-postmark-transport');
 
 const connection = mysql.createConnection({
   host: 'maglev.proxy.rlwy.net',
@@ -23,11 +22,15 @@ const hostname = '0.0.0.0';
 const port = 3000;
 
   //  .
-const transporter = nodemailer.createTransport(postmarkTransport({
+const transporter = nodemailer.createTransport({
+  host: 'smtp-relay.brevo.com',
+  port: 587,            // or 465 depending on your preference
+  secure: false,        // true for 465, false for 587 (with STARTTLS)
   auth: {
-    apiKey: process.env.POSTMARK_API_TOKEN
+    user: process.env.BREVO_SMTP_USER,   // find in Brevo SMTP settings
+    pass: process.env.BREVO_SMTP_KEY     // the SMTP key/password
   }
-}));
+});
 
 
 
