@@ -35,7 +35,7 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-app.use(express.static(path.join(__dirname, 'customer')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 
