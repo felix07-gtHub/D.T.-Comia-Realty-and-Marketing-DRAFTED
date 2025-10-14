@@ -25,7 +25,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://artclassic-production.up.railway.app', // Allow only a specific origin
+  origin: 'https://dt-comia-realty-and-marketing-production.up.railway.app', // Allow only a specific origin
   credentials: true,            // Enable cookies and credentials
 }));
 app.use(session({
