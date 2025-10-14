@@ -861,7 +861,7 @@ async function savedPropertiesListings() {
         };
 
     } else {
-        window.location = "./index.html";
+        window.location = "./homePage.html";
 
     };
 

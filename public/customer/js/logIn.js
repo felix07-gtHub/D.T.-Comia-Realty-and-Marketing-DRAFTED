@@ -136,7 +136,7 @@ async function submitButton() {
                 window.location = "../agent/houseListingsPage.html";    
 
             } else {
-                window.location = "./index.html";
+                window.location = "./homePage.html";
             };
 
         };

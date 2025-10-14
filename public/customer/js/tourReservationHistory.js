@@ -636,7 +636,7 @@ async function historyListings() {
         };
 
     } else {
-        window.location = "./index.html";
+        window.location = "./homePage.html";
 
     };
 
