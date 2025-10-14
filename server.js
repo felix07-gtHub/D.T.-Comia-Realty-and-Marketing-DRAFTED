@@ -278,19 +278,13 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -374,19 +368,13 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -468,19 +456,13 @@ app.post('/sign-up', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address,
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -568,19 +550,13 @@ app.post('/sign-up', (req, res) => {
 
                 //  .
               async function emailSender() {
-                try {
-                  const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                    to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
-                    subject: "Hello ✔",
-                    text: "Hello world?", // plain‑text body
-                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                  }); 
-
-                  console.log("✅ Email sent:", info);
-                } catch (error) {
-                  console.error("❌ Email send error:", error);
-                }
+                const info = await transporter.sendMail({
+                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                  to: firstNameInput + ' ' + lastNameInput + ", " + emailAddressInput,
+                  subject: "Hello ✔",
+                  text: "Hello world?", // plain‑text body
+                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                }); 
               };
 
               emailSender().catch(console.err);
@@ -705,19 +681,13 @@ app.post('/email-verification-link', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -812,19 +782,13 @@ app.post('/email-verification-link', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -917,19 +881,13 @@ app.post('/email-verification-link', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", <" + selectProxyUserResult[0].email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name + ", " + selectProxyUserResult[0].email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -1434,19 +1392,13 @@ app.post('/forgot-password', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -1525,19 +1477,13 @@ app.post('/forgot-password', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -1614,19 +1560,13 @@ app.post('/forgot-password', (req, res) => {
 
                     //  .
                   async function emailSender() {
-                    try {
-                      const info = await transporter.sendMail({
-                        from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                        to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                        subject: "Hello ✔",
-                        text: "Hello world?", // plain‑text body
-                        html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                      }); 
-
-                      console.log("✅ Email sent:", info);
-                    } catch (error) {
-                      console.error("❌ Email send error:", error);
-                    }
+                    const info = await transporter.sendMail({
+                      from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                      subject: "Hello ✔",
+                      text: "Hello world?", // plain‑text body
+                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                    }); 
                   };
 
                   emailSender().catch(console.err);
@@ -1708,19 +1648,13 @@ app.post('/forgot-password', (req, res) => {
 
                 //  .
               async function emailSender() {
-                try {
-                  const info = await transporter.sendMail({
-                    from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                    to: selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name + ", <" + selectUserResult[0].recovery_email_address + '>',
-                    subject: "Hello ✔",
-                    text: "Hello world?", // plain‑text body
-                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                  });
-
-                  console.log("✅ Email sent:", info);
-                } catch (error) {
-                  console.error("❌ Email send error:", error);
-                }
+                const info = await transporter.sendMail({
+                  from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                  to: selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name + ", " + selectUserResult[0].recovery_email_address,
+                  subject: "Hello ✔",
+                  text: "Hello world?", // plain‑text body
+                  html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                }); 
               };
 
               emailSender().catch(console.err);
@@ -1824,19 +1758,13 @@ app.post('/password-change-link', (req, res) => {
 
                   //  .
                 async function emailSender() {
-                  try {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                    }); 
-
-                    console.log("✅ Email sent:", info);
-                  } catch (error) {
-                    console.error("❌ Email send error:", error);
-                  }
+                  const info = await transporter.sendMail({
+                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                    subject: "Hello ✔",
+                    text: "Hello world?", // plain‑text body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                  }); 
                 };
 
                 emailSender().catch(console.err);
@@ -1917,19 +1845,13 @@ app.post('/password-change-link', (req, res) => {
 
                   //  .
                 async function emailSender() {
-                  try {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                    });
-
-                    console.log("✅ Email sent:", info);
-                  } catch (error) {
-                    console.error("❌ Email send error:", error);
-                  } 
+                  const info = await transporter.sendMail({
+                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                    subject: "Hello ✔",
+                    text: "Hello world?", // plain‑text body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                  }); 
                 };
 
                 emailSender().catch(console.err);
@@ -2008,19 +1930,13 @@ app.post('/password-change-link', (req, res) => {
 
                   //  .
                 async function emailSender() {
-                  try {
-                    const info = await transporter.sendMail({
-                      from: '"D.T. Comcia Realty and Markerting" <phowarddave@gmail.com>',
-                      to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", <" + selectForgetPasswordResult[0].recovery_email_address + '>',
-                      subject: "Hello ✔",
-                      text: "Hello world?", // plain‑text body
-                      html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
-                    }); 
-
-                    console.log("✅ Email sent:", info);
-                  } catch (error) {
-                    console.error("❌ Email send error:", error);
-                  }
+                  const info = await transporter.sendMail({
+                    from: '"D.T. Comcia Realty and Markerting" <olan.johnfelix@gmail.com>',
+                    to: selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name + ", " + selectForgetPasswordResult[0].recovery_email_address,
+                    subject: "Hello ✔",
+                    text: "Hello world?", // plain‑text body
+                    html: "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerifivation.html</a>", // HTML body
+                  }); 
                 };
 
                 emailSender().catch(console.err);
