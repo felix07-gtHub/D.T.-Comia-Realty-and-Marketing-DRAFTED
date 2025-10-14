@@ -36,7 +36,7 @@ body {
 
 .hero .dim {
   position: absolute;
-  background-image: linear-gradient(black, transparent), url('../../resources/HOME PAGE/housebg.jpg');
+  background-image: linear-gradient(black, transparent), url('https://dt-comia-realty-and-marketing-production.up.railway.app/resources/BUYER%20ICONS%20AND%20LOGOS/DT%20Comia%20Logo.pngg');
   z-index: -1;
 
   width: 100%;
