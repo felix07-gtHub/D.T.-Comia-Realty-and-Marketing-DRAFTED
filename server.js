@@ -9,10 +9,11 @@ const nodemailer = require("nodemailer");
 const session = require('express-session');
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
+  host: 'mysql.railway.internal',
+  port: '3306';
   user: 'root',
-  password: 'MySql47183',
-  database: 'dt_comia'
+  password: 'MIHLBZEpjZocmZtlrpXkLJyTSiLhbpmY',
+  database: 'railway'
 });
 
 const app = express();
