@@ -548,8 +548,8 @@ app.post('/sign-up', (req, res) => {
                                           null
                                          ];
 
-            //  connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-              //  if(err) {throw err};
+            connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
+              if(err) {throw err};
 
                 //  .
               async function emailSender() {
@@ -577,7 +577,7 @@ app.post('/sign-up', (req, res) => {
                         password: password
                       });
 
-            //  });
+            });
 
           });
 
