@@ -23,6 +23,8 @@ const port = 3000;
 const apiInstance = new Brevo.TransactionalEmailsApi();
 // Configure API key authorization: api-key
 apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
+const sendSmtpEmail = new Brevo.SendSmtpEmail();
+sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
 
 
 
@@ -271,25 +273,17 @@ app.post('/sign-up', (req, res) => {
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
 
-                    //  .
-                  function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({
                             firstName: firstName2,
@@ -368,25 +362,17 @@ app.post('/sign-up', (req, res) => {
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
 
-                    //  .
-                  function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({
                             firstName: firstName2,
@@ -462,26 +448,18 @@ app.post('/sign-up', (req, res) => {
 
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
+                  
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    //  .
-                  function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({
                             firstName: firstName2,
@@ -563,26 +541,18 @@ app.post('/sign-up', (req, res) => {
 
             connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
               if(err) {throw err};
+              
+              sendSmtpEmail.to = [
+                                  {
+                                      "email": emailAddressInput,
+                                      "name": emailAddressInput
+                                  }
+                                 ];
+              sendSmtpEmail.subject = "Hello ✔";
+              sendSmtpEmail.textContent = "Hello world?";
+              sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                //  .
-              function emailSender() {
-                const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                sendSmtpEmail.to = [
-                                        {
-                                            "email": emailAddressInput,
-                                            "name": emailAddressInput
-                                        }
-                                      ];
-                sendSmtpEmail.subject = "Hello ✔";
-                sendSmtpEmail.textContent = "Hello world?";
-                sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                apiInstance.sendTransacEmail(sendSmtpEmail);
-              };
-
-              emailSender();
+              apiInstance.sendTransacEmail(sendSmtpEmail);
 
               res.json({
                         firstName: firstName2,
@@ -701,30 +671,22 @@ app.post('/email-verification-link', (req, res) => {
 
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
+                  
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
-
-                      //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                      //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                    res.json("");
+                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+                  res.json("");
 
                 });
 
@@ -810,29 +772,21 @@ app.post('/email-verification-link', (req, res) => {
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
-
-                      //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                      //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                    res.json("");
+                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+                  res.json("");
 
                 });
 
@@ -915,30 +869,22 @@ app.post('/email-verification-link', (req, res) => {
 
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
+                  
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectProxyUserResult[0].email_address,
+                                          "name": selectProxyUserResult[0].email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectProxyUserResult[0].email_address,
-                                            "name": selectProxyUserResult[0].email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
-
-                      //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                      //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                    res.json("");
+                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+                  res.json("");
 
                 });
 
@@ -1433,25 +1379,17 @@ app.post('/forgot-password', (req, res) => {
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectForgetPasswordResult[0].recovery_email_address,
+                                          "name": selectForgetPasswordResult[0].recovery_email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectForgetPasswordResult[0].recovery_email_address,
-                                            "name": selectForgetPasswordResult[0].recovery_email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1524,26 +1462,18 @@ app.post('/forgot-password', (req, res) => {
 
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
+                  
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectForgetPasswordResult[0].recovery_email_address,
+                                          "name": selectForgetPasswordResult[0].recovery_email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectForgetPasswordResult[0].recovery_email_address,
-                                            "name": selectForgetPasswordResult[0].recovery_email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1614,26 +1544,18 @@ app.post('/forgot-password', (req, res) => {
 
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
+                  
+                  sendSmtpEmail.to = [
+                                      {
+                                          "email": selectForgetPasswordResult[0].recovery_email_address,
+                                          "name": selectForgetPasswordResult[0].recovery_email_address
+                                      }
+                                     ];
+                  sendSmtpEmail.subject = "Hello ✔";
+                  sendSmtpEmail.textContent = "Hello world?";
+                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                    //  .
-                  async function emailSender() {
-                    const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                    sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                    sendSmtpEmail.to = [
-                                        {
-                                            "email": selectForgetPasswordResult[0].recovery_email_address,
-                                            "name": selectForgetPasswordResult[0].recovery_email_address
-                                        }
-                                      ];
-                    sendSmtpEmail.subject = "Hello ✔";
-                    sendSmtpEmail.textContent = "Hello world?";
-                    sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                    apiInstance.sendTransacEmail(sendSmtpEmail);
-                  };
-
-                  emailSender();
+                  apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1710,25 +1632,17 @@ app.post('/forgot-password', (req, res) => {
             connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
               if(err) {throw err};
 
-                //  .
-              async function emailSender() {
-                const sendSmtpEmail = new Brevo.SendSmtpEmail();
+              sendSmtpEmail.to = [
+                                  {
+                                      "email": selectUserResult[0].recovery_email_address,
+                                      "name": selectUserResult[0].recovery_email_address
+                                  }
+                                 ];
+              sendSmtpEmail.subject = "Hello ✔";
+              sendSmtpEmail.textContent = "Hello world?";
+              sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                sendSmtpEmail.to = [
-                                    {
-                                        "email": selectUserResult[0].recovery_email_address,
-                                        "name": selectUserResult[0].recovery_email_address
-                                    }
-                                  ];
-                sendSmtpEmail.subject = "Hello ✔";
-                sendSmtpEmail.textContent = "Hello world?";
-                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                apiInstance.sendTransacEmail(sendSmtpEmail);
-              };
-
-              emailSender();
+              apiInstance.sendTransacEmail(sendSmtpEmail);
 
               res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1826,26 +1740,18 @@ app.post('/password-change-link', (req, res) => {
 
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
+                
+                sendSmtpEmail.to = [
+                                    {
+                                        "email": selectForgetPasswordResult[0].recovery_email_address,
+                                        "name": selectForgetPasswordResult[0].recovery_email_address
+                                    }
+                                   ];
+                sendSmtpEmail.subject = "Hello ✔";
+                sendSmtpEmail.textContent = "Hello world?";
+                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                  //  .
-                async function emailSender() {
-                  const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                  sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                    ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
-                };
-
-                emailSender();
+                apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1920,26 +1826,18 @@ app.post('/password-change-link', (req, res) => {
 
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
+                
+                sendSmtpEmail.to = [
+                                    {
+                                        "email": selectForgetPasswordResult[0].recovery_email_address,
+                                        "name": selectForgetPasswordResult[0].recovery_email_address
+                                    }
+                                   ];
+                sendSmtpEmail.subject = "Hello ✔";
+                sendSmtpEmail.textContent = "Hello world?";
+                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                  //  .
-                async function emailSender() {
-                  const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                  sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                    ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
-                };
-
-                emailSender();
+                apiInstance.sendTransacEmail(sendSmtpEmail);
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -2012,26 +1910,18 @@ app.post('/password-change-link', (req, res) => {
 
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
+                
+                sendSmtpEmail.to = [
+                                    {
+                                        "email": selectForgetPasswordResult[0].recovery_email_address,
+                                        "name": selectForgetPasswordResult[0].recovery_email_address
+                                    }
+                                   ];
+                sendSmtpEmail.subject = "Hello ✔";
+                sendSmtpEmail.textContent = "Hello world?";
+                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
 
-                  //  .
-                async function emailSender() {
-                  const sendSmtpEmail = new Brevo.SendSmtpEmail();
-
-                  sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                    ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>http://127.0.0.1:3001/html/SE1/GROUP%202/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
-                };
-
-                emailSender();
+                apiInstance.sendTransacEmail(sendSmtpEmail);
 
                 res.json({emailAddress: emailAddress});
 
