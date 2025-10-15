@@ -289,7 +289,7 @@ app.post('/sign-up', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({
                             firstName: firstName2,
@@ -386,7 +386,7 @@ app.post('/sign-up', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({
                             firstName: firstName2,
@@ -481,7 +481,7 @@ app.post('/sign-up', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({
                             firstName: firstName2,
@@ -582,7 +582,7 @@ app.post('/sign-up', (req, res) => {
                 apiInstance.sendTransacEmail(sendSmtpEmail);
               };
 
-              emailSender().catch(console.err);
+              emailSender().;
 
               res.json({
                         firstName: firstName2,
@@ -720,7 +720,7 @@ app.post('/email-verification-link', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -828,7 +828,7 @@ app.post('/email-verification-link', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -934,7 +934,7 @@ app.post('/email-verification-link', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                       //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                       //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1451,7 +1451,7 @@ app.post('/forgot-password', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1543,7 +1543,7 @@ app.post('/forgot-password', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1633,7 +1633,7 @@ app.post('/forgot-password', (req, res) => {
                     apiInstance.sendTransacEmail(sendSmtpEmail);
                   };
 
-                  emailSender().catch(console.err);
+                  emailSender().;
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1728,7 +1728,7 @@ app.post('/forgot-password', (req, res) => {
                 apiInstance.sendTransacEmail(sendSmtpEmail);
               };
 
-              emailSender().catch(console.err);
+              emailSender().;
 
               res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1845,7 +1845,7 @@ app.post('/password-change-link', (req, res) => {
                   apiInstance.sendTransacEmail(sendSmtpEmail);
                 };
 
-                emailSender().catch(console.err);
+                emailSender().;
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1939,7 +1939,7 @@ app.post('/password-change-link', (req, res) => {
                   apiInstance.sendTransacEmail(sendSmtpEmail);
                 };
 
-                emailSender().catch(console.err);
+                emailSender().;
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -2031,7 +2031,7 @@ app.post('/password-change-link', (req, res) => {
                   apiInstance.sendTransacEmail(sendSmtpEmail);
                 };
 
-                emailSender().catch(console.err);
+                emailSender().;
 
                 res.json({emailAddress: emailAddress});
 
