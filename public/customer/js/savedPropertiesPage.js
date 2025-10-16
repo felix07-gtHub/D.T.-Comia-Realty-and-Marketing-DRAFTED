@@ -627,7 +627,7 @@ async function savedPropertiesListings() {
                     const div = document.createElement('div');
                 
                     propertyType.innerHTML = data.propertyListings[i].property_type;
-                    locationModal.href = "";
+                    locationModal.href = "./gpsSystem.html";
                     locationModal.innerHTML = "View Location";
                     bedRooms.innerHTML = "Bedrooms";
                     bedRoomsCount.innerHTML = data.propertyListings[i].room_count;

@@ -97,14 +97,13 @@
       <hr>
 
       
-      <form enctype="multipart/form-data" method="post" id="form">
-          <!-- SEND THE PARTS OF PROPERTY ID BEFORE THE FILES. -->
-        <input type="hidden" name="Date_created">
-        <input type="hidden" name="Random_numbers">
-
-         
+      <form enctype="multipart/form-data" method="post" id="form">         
         <p>Location</p>        
-        <input type="text" name="Location" required>
+       
+        <div>
+            <input type="text" name="Location" required>
+            <div></div>
+        </div>
 
         <p>Address</p>
         <input type="text" name="Address" required>

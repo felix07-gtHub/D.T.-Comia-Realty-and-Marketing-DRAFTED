@@ -65,7 +65,11 @@
   align-content: end;
 }
 
- #AddProperty input:not(#AddProperty input[type='file']),
+#AddProperty > form > div:nth-child(4) > div:nth-child(2) {
+  overflow: hidden;
+}
+
+#AddProperty input:not(#AddProperty input[type='file']),
 #AddProperty select {
   background-color: #4e6e5d;
   
@@ -84,6 +88,10 @@
 #AddProperty > form > input,
 #AddProperty > form > select {
   margin-bottom: 22.5px;
+}
+
+#AddProperty > form > p:nth-child(5) {
+  margin-top: 67.2px;
 }
 
 #AddProperty input:not(#AddProperty input[type='number']),

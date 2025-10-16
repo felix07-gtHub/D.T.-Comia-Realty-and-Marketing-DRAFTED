@@ -61,13 +61,15 @@ function invalidInputsMousEave(e) {
         THIS HAPPENS WHEN THE USER INPUTS A VALUE IN A NON-REQUIRED FIELD AND SAVES IT.
     */
 function inputChange() {
-    if(firstName.style.border != "none" && firstName.value != "") {   
+    if(firstName.value != "") {   
         firstName.removeEventListener("mouseenter", invalidInputsMousEnter);
         firstName.removeEventListener("mouseleave", invalidInputsMousEave);
 
-        firstName.style.backgroundColor = '#f8ce7f';
-        firstName.style.color = '#faebcf';
-        firstName.style.border = 'none';
+        firstName.style.backgroundColor = 'transparent';
+        firstName.style.color = 'black';
+        firstName.style.border = 'solid 1px #4f4b3a';
+        firstName.style.transform = 'none';
+        firstName.style.transition = 'none';
         firstName.style.boxShadow = 'none';  
 
         firstName.addEventListener("mouseenter", validInputsMousEnter);
@@ -75,13 +77,15 @@ function inputChange() {
 
     };
 
-    if(lastName.style.border != "none" && lastName.value != "") { 
+    if(lastName.value != "") { 
         lastName.removeEventListener("mouseenter", invalidInputsMousEnter);
         lastName.removeEventListener("mouseleave", invalidInputsMousEave);
 
-        lastName.style.backgroundColor = '#f8ce7f';
-        lastName.style.color = '#faebcf';
-        lastName.style.border = 'none';
+        lastName.style.backgroundColor = 'transparent';
+        lastName.style.color = 'black';
+        lastName.style.border = 'solid 1px #4f4b3a';
+        lastName.style.transform = 'none';
+        lastName.style.transition = 'none';
         lastName.style.boxShadow = 'none';  
 
         lastName.addEventListener("mouseenter", validInputsMousEnter);
@@ -89,13 +93,15 @@ function inputChange() {
 
     };
 
-    if(email.style.border != "none" && email.value != "") {
+    if(email.value != "") {
         email.removeEventListener("mouseenter", invalidInputsMousEnter);
         email.removeEventListener("mouseleave", invalidInputsMousEave);
 
-        email.style.backgroundColor = '#f8ce7f';
-        email.style.color = '#faebcf';
-        email.style.border = 'none';
+        email.style.backgroundColor = 'transparent';
+        email.style.color = 'black';
+        email.style.border = 'solid 1px #4f4b3a';
+        email.style.transform = 'none';
+        email.style.transition = 'none';
         email.style.boxShadow = 'none';  
 
         email.addEventListener("mouseenter", validInputsMousEnter);
@@ -103,13 +109,15 @@ function inputChange() {
 
     };
 
-    if(password.style.border != "none" && password.value != "") {
+    if(password.value != "") {
         password.removeEventListener("mouseenter", invalidInputsMousEnter);
         password.removeEventListener("mouseleave", invalidInputsMousEave);
 
-        password.style.backgroundColor = '#f8ce7f';
-        password.style.color = '#faebcf';
-        password.style.border = 'none';
+        password.style.backgroundColor = 'transparent';
+        password.style.color = 'black';
+        password.style.border = 'solid 1px #4f4b3a';
+        password.style.transform = 'none';
+        password.style.transition = 'none';
         password.style.boxShadow = 'none';  
 
         password.addEventListener("mouseenter", validInputsMousEnter);

@@ -759,7 +759,7 @@ async function landListings() {
             const div = document.createElement('div');
          
             propertyType.innerHTML = data.landListings[i].property_type;
-            locationModal.href = "";
+            locationModal.href = "./gpsSystem.html";
             locationModal.innerHTML = "View Location";
             bedRooms.innerHTML = "Bedrooms";
             bedRoomsCount.innerHTML = data.landListings[i].room_count;

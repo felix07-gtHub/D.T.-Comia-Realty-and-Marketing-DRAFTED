@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer  = require('multer');
 const fs = require('node:fs');
+const nodemailer = require("nodemailer");
 const session = require('express-session');
 const path = require('path');
 const Brevo = require('@getbrevo/brevo');
@@ -19,14 +20,14 @@ const connection = mysql.createConnection({
 });
 
 const app = express();
-const hostname = process.env.HOST_NAME;
-const port = process.env.PORT;
+const hostname = process.env.SERVER_HOST_NAME;
+const port = process.env.SERVER_PORT;
 const apiInstance = new Brevo.TransactionalEmailsApi();
 // Configure API key authorization: api-key
 apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
 const sendSmtpEmail = new Brevo.SendSmtpEmail();
 
-sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
+sendSmtpEmail.sender = {"name": process.env.SENDER_NAME, "email": process.env.SENDER_EMAIL};
 const upload = multer({ storage: multer.memoryStorage() });
 // Create a single supabase client for interacting with your database
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
@@ -245,68 +246,80 @@ app.post('/sign-up', (req, res) => {
         if(err) {throw err};
 
         if(selectProxyUserResult.length > 0) {
-          if(selectProxyUserResult[0].attempt_count != null) {
-            if(parseInt(selectProxyUserResult[0].attempt_count) < 4) {
-                //  SELECT TOKEN QUERY.
-              const selectTokenQuery = 'SELECT token FROM proxy_user_table';
+          if(parseInt(selectProxyUserResult[0].attempt_count) < 5) {
+              //  SELECT TOKEN QUERY.
+            const selectTokenQuery = 'SELECT token FROM proxy_user_table';
 
-              connection.query(selectTokenQuery, (err, selectTokenResult) => {
-                if(err) {throw err};
+            connection.query(selectTokenQuery, (err, selectTokenResult) => {
+              if(err) {throw err};
 
-                tokenFunction();
+              tokenFunction();
 
-                if(selectTokenResult.length > 0) {
-                  for(let i = 0; i < selectProxyUserResult.length; i++) {
-                    if(selectTokenResult.token == token) {
-                      token = '';
-                      tokenFunction();
+              if(selectTokenResult.length > 0) {
+                for(let i = 0; i < selectProxyUserResult.length; i++) {
+                  if(selectTokenResult.token == token) {
+                    token = '';
+                    tokenFunction();
 
-                      i = 0;
-
-                    };
+                    i = 0;
 
                   };
-                    
-                };
 
-                const d = new Date();
-                d.setMinutes(d.getMinutes() + 30);
-                const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                };
+                  
+              };
+
+              const d = new Date();
+              const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                   (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                     d.getDate().toString().padStart(2, "0") + ' ' +
                                     d.getHours().toString().padStart(2, "0") + ':' +
                                     d.getMinutes().toString().padStart(2, "0") + ':' +
                                     d.getSeconds().toString().padStart(2, "0");
 
-                  //  INSERT PROXY USER QUERY.
-                const insertProxyUserQuery = 'UPDATE proxy_user_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
+              d.setMinutes(d.getMinutes() + 30);
+              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                 (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                  d.getDate().toString().padStart(2, "0") + ' ' +
+                                  d.getHours().toString().padStart(2, "0") + ':' +
+                                  d.getMinutes().toString().padStart(2, "0") + ':' +
+                                  d.getSeconds().toString().padStart(2, "0");
 
-                  //  VALUE FOR insertProxyUserValue.
-                const insertProxyUserValue = [
-                                              token,
-                                              dateExpired,
-                                              parseInt(selectProxyUserResult[0].attempt_count) + 1,
-                                              null,
-                                              selectProxyUserResult[0].token
-                                             ];
+                //  INSERT PROXY USER QUERY.
+              const insertProxyUserQuery = 'UPDATE proxy_user_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
 
-                connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-                  if(err) {throw err};
+                //  VALUE FOR insertProxyUserValue.
+              const insertProxyUserValue = [
+                                            token,
+                                            dateExpired,
+                                            parseInt(selectProxyUserResult[0].attempt_count) + 1,
+                                            dateAttempted,
+                                            selectProxyUserResult[0].token
+                                           ];
 
-                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
+              connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
+                if(err) {throw err};
 
-                  res.json({
-                            firstName: firstName2,
-                            lastName: lastName2,
-                            email: emailAddress,
-                            password: password
-                          });
+                emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
-                });
+                res.json({
+                          firstName: firstName2,
+                          lastName: lastName2,
+                          email: emailAddress,
+                          password: password
+                        });
 
               });
 
-            } else {
+            });
+
+          } else {
+            const d = new Date();         
+            d.setMinutes(d.getMinutes() + 30);
+
+            const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
+
+            if(d < dateAttempted) {
                 //  SELECT TOKEN QUERY.
               const selectTokenQuery = 'SELECT token FROM proxy_user_table';
 
@@ -330,15 +343,6 @@ app.post('/sign-up', (req, res) => {
                 };
 
                 const d = new Date();
-                d.setMinutes(d.getMinutes() + 30);
-                const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                    d.getDate().toString().padStart(2, "0") + ' ' +
-                                    d.getHours().toString().padStart(2, "0") + ':' +
-                                    d.getMinutes().toString().padStart(2, "0") + ':' +
-                                    d.getSeconds().toString().padStart(2, "0");
-                                    
-                d.setMinutes(d.getMinutes() + 30);
                 const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                      (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                       d.getDate().toString().padStart(2, "0") + ' ' +
@@ -346,67 +350,9 @@ app.post('/sign-up', (req, res) => {
                                       d.getMinutes().toString().padStart(2, "0") + ':' +
                                       d.getSeconds().toString().padStart(2, "0");
 
-                  //  INSERT PROXY USER QUERY.
-                const insertProxyUserQuery = 'UPDATE proxy_user_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
-
-                  //  VALUE FOR insertProxyUserValue.
-                const insertProxyUserValue = [
-                                              token,
-                                              dateExpired,
-                                              null,
-                                              dateAttempted,
-                                              selectProxyUserResult[0].token
-                                             ];
-
-                connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-                  if(err) {throw err};
-
-                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
-
-                  res.json({
-                            firstName: firstName2,
-                            lastName: lastName2,
-                            email: emailAddress,
-                            password: password
-                          });
-
-                });
-
-              });
-
-            };
-
-          } else {
-            const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
-            const d = new Date();
-
-            if(dateAttempted < d) {
-                //  SELECT TOKEN QUERY.
-              const selectTokenQuery = 'SELECT token FROM proxy_user_table';
-
-              connection.query(selectTokenQuery, (err, selectTokenResult) => {
-                if(err) {throw err};
-
-                tokenFunction();
-
-                if(selectTokenResult.length > 0) {
-                  for(let i = 0; i < selectProxyUserResult.length; i++) {
-                    if(selectTokenResult.token == token) {
-                      token = '';
-                      tokenFunction();
-
-                      i = 0;
-
-                    };
-
-                  };
-                    
-                };
-
-                const d = new Date();
                 d.setMinutes(d.getMinutes() + 30);
                 const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                   (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                     d.getDate().toString().padStart(2, "0") + ' ' +
                                     d.getHours().toString().padStart(2, "0") + ':' +
                                     d.getMinutes().toString().padStart(2, "0") + ':' +
@@ -417,12 +363,12 @@ app.post('/sign-up', (req, res) => {
 
                   //  VALUE FOR insertProxyUserValue.
                 const insertProxyUserValue = [
-                                              token,
-                                              dateExpired,
-                                              1,
-                                              null,
-                                              selectProxyUserResult[0].token
-                                             ];
+                                          token,
+                                          dateExpired,
+                                          1,
+                                          dateAttempted,
+                                          selectProxyUserResult[0].token
+                                        ];
 
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
@@ -441,8 +387,6 @@ app.post('/sign-up', (req, res) => {
               });
 
             } else {
-              const dateAttempted = selectProxyUserResult[0].date_attempted;
-
               res.json({dateAttempted: dateAttempted});
 
             };
@@ -473,6 +417,13 @@ app.post('/sign-up', (req, res) => {
             };
 
             const d = new Date();
+            const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                 (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                  d.getDate().toString().padStart(2, "0") + ' ' +
+                                  d.getHours().toString().padStart(2, "0") + ':' +
+                                  d.getMinutes().toString().padStart(2, "0") + ':' +
+                                  d.getSeconds().toString().padStart(2, "0");
+
             d.setMinutes(d.getMinutes() + 30);
             const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
@@ -493,7 +444,7 @@ app.post('/sign-up', (req, res) => {
                                           token,
                                           dateExpired,
                                           1,
-                                          null
+                                          dateAttempted
                                          ];
 
             connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
@@ -511,7 +462,7 @@ app.post('/sign-up', (req, res) => {
             });
 
           });
-
+        
         };
 
       });
@@ -548,111 +499,100 @@ app.post('/email-verification-link', (req, res) => {
           res.json("");
 
       } else {
-        if(selectProxyUserResult[0].attempt_count != null) {
-          if(parseInt(selectProxyUserResult[0].attempt_count) < 4) {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM proxy_user_table';
+        if(parseInt(selectProxyUserResult[0].attempt_count) < 5) {
+            //  SELECT TOKEN QUERY.
+          const selectTokenQuery = 'SELECT token FROM proxy_user_table';
 
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
+          connection.query(selectTokenQuery, (err, selectTokenResult) => {
+            if(err) {throw err};
 
-              tokenFunction();
+            tokenFunction();
 
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectProxyUserResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
+            if(selectTokenResult.length > 0) {
+              for(let i = 0; i < selectProxyUserResult.length; i++) {
+                if(selectTokenResult.token == token) {
+                  token = '';
+                  tokenFunction();
 
-                    i = 0;
-
-                  };
+                  i = 0;
 
                 };
-                  
+
               };
+                
+            };
 
-              const d = new Date();
-              d.setMinutes(d.getMinutes() + 30);
-              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                  d.getDate().toString().padStart(2, "0") + ' ' +
-                                  d.getHours().toString().padStart(2, "0") + ':' +
-                                  d.getMinutes().toString().padStart(2, "0") + ':' +
-                                  d.getSeconds().toString().padStart(2, "0");
-
-                //  INSERT PROXY USER QUERY.
-              const insertProxyUserQuery = 'INSERT INTO proxy_user_table (first_name, last_name, email_address, password, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-
-                //  VALUE FOR insertProxyUserValue.
-              const insertProxyUserValue = [
-                                            selectProxyUserResult[0].first_name,
-                                            selectProxyUserResult[0].last_name,
-                                            selectProxyUserResult[0].email_address,
-                                            selectProxyUserResult[0].password,
-                                            token,
-                                            dateExpired,
-                                            parseInt(selectProxyUserResult[0].attempt_count) + 1,
-                                            null
-                                           ];
-
-              connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-                if(err) {throw err};
-
-                  //  DELETE PROXY USER QUERY.
-                const deleteProxyUserQuery = 'DELETE FROM proxy_user_table WHERE token = ?';
-
-                  //  DECLARE deleteProxyUserValue.
-                const deleteProxyUserValue = selectProxyUserResult[0].token;
-
-                connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
-                  if(err) {throw err};
-                  
-                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
-
-                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                  res.json("");
-
-                });
-
-              });
-
-            });
-
-          } else {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM proxy_user_table';
-
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
-
-              tokenFunction();
-
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectProxyUserResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
-
-                    i = 0;
-
-                  };
-
-                };
-                  
-              };
-
-              const d = new Date();
-              d.setMinutes(d.getMinutes() + 30);
-              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+            const d = new Date();
+            const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                   d.getDate().toString().padStart(2, "0") + ' ' +
                                   d.getHours().toString().padStart(2, "0") + ':' +
                                   d.getMinutes().toString().padStart(2, "0") + ':' +
                                   d.getSeconds().toString().padStart(2, "0");
 
-              d.setMinutes(d.getMinutes() + 30);
+            d.setMinutes(d.getMinutes() + 30);
+            const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                              (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                d.getDate().toString().padStart(2, "0") + ' ' +
+                                d.getHours().toString().padStart(2, "0") + ':' +
+                                d.getMinutes().toString().padStart(2, "0") + ':' +
+                                d.getSeconds().toString().padStart(2, "0");
+
+              //  INSERT PROXY USER QUERY.
+            const insertProxyUserQuery = 'UPDATE proxy_user_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
+
+              //  VALUE FOR insertProxyUserValue.
+            const insertProxyUserValue = [
+                                          token,
+                                          dateExpired,
+                                          parseInt(selectProxyUserResult[0].attempt_count) + 1,
+                                          dateAttempted,
+                                          selectProxyUserResult[0].token
+                                         ];
+
+            connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
+              if(err) {throw err};
+
+              emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
+
+                //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+              res.json("");
+
+            });
+
+          });
+
+        } else {
+          const d = new Date();         
+          d.setMinutes(d.getMinutes() + 30);
+
+          const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
+
+          if(d < dateAttempted) {
+              //  SELECT TOKEN QUERY.
+            const selectTokenQuery = 'SELECT token FROM proxy_user_table';
+
+            connection.query(selectTokenQuery, (err, selectTokenResult) => {
+              if(err) {throw err};
+
+              tokenFunction();
+
+              if(selectTokenResult.length > 0) {
+                for(let i = 0; i < selectProxyUserResult.length; i++) {
+                  if(selectTokenResult.token == token) {
+                  token = '';
+                  tokenFunction();
+
+                  i = 0;
+
+                  };
+
+                };
+                  
+              };
+
+              const d = new Date();
               const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                    (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                     d.getDate().toString().padStart(2, "0") + ' ' +
@@ -660,75 +600,6 @@ app.post('/email-verification-link', (req, res) => {
                                     d.getMinutes().toString().padStart(2, "0") + ':' +
                                     d.getSeconds().toString().padStart(2, "0");
 
-                //  INSERT PROXY USER QUERY.
-              const insertProxyUserQuery = 'INSERT INTO proxy_user_table (first_name, last_name, email_address, password, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-
-                //  VALUE FOR insertProxyUserValue.
-              const insertProxyUserValue = [
-                                            selectProxyUserResult[0].first_name,
-                                            selectProxyUserResult[0].last_name,
-                                            selectProxyUserResult[0].email_address,
-                                            selectProxyUserResult[0].password,
-                                            token,
-                                            dateExpired,
-                                            null,
-                                            dateAttempted
-                                           ];
-
-              connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
-                if(err) {throw err};
-
-                  //  DELETE PROXY USER QUERY.
-                const deleteProxyUserQuery = 'DELETE FROM proxy_user_table WHERE token = ?';
-
-                  //  DECLARE deleteProxyUserValue.
-                const deleteProxyUserValue = selectProxyUserResult[0].token;
-
-                connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
-                  if(err) {throw err};
-
-                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
-
-                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                  res.json("");
-
-                });
-
-              });
-
-            });
-
-          };
-
-        } else {
-          const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
-          const d = new Date();
-
-          if(dateAttempted < d) {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM proxy_user_table';
-
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
-
-              tokenFunction();
-
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectProxyUserResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
-
-                    i = 0;
-
-                  };
-
-                };
-                  
-              };
-
-              const d = new Date();
               d.setMinutes(d.getMinutes() + 30);
               const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
@@ -738,39 +609,25 @@ app.post('/email-verification-link', (req, res) => {
                                   d.getSeconds().toString().padStart(2, "0");
 
                 //  INSERT PROXY USER QUERY.
-              const insertProxyUserQuery = 'INSERT INTO proxy_user_table (first_name, last_name, email_address, password, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+              const insertProxyUserQuery = 'UPDATE proxy_user_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
 
                 //  VALUE FOR insertProxyUserValue.
               const insertProxyUserValue = [
-                                            selectProxyUserResult[0].first_name,
-                                            selectProxyUserResult[0].last_name,
-                                            selectProxyUserResult[0].email_address,
-                                            selectProxyUserResult[0].password,
                                             token,
                                             dateExpired,
                                             1,
-                                            null
-                                           ];
+                                            dateAttempted,
+                                            selectProxyUserResult[0].token
+                                          ];
 
               connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                 if(err) {throw err};
 
-                  //  DELETE PROXY USER QUERY.
-                const deleteProxyUserQuery = 'DELETE FROM proxy_user_table WHERE token = ?';
+                emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
-                  //  DECLARE deleteProxyUserValue.
-                const deleteProxyUserValue = selectProxyUserResult[0].token;
-
-                connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
-                  if(err) {throw err};
-                  
-                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
-
-                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                  res.json("");
-
-                });
+                  //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                  //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+                res.json("");
 
               });
 
@@ -917,7 +774,6 @@ app.post('/email-verification', (req, res) => {
 
           } else {
             text = "Link expired.";
-            const dateAttempted = selectProxyUserResult[0].date_attempted;
 
             res.json({text: text, link: link});
 
@@ -1011,138 +867,58 @@ app.post('/log-in', (req, res) => {
       });
     
     } else if(account == "ACCOUNT DOESN'T MATCH!") {
-      if(selectUserResult[0].password != null) {
-          //  SELECT LOG IN QUERY.
-        const selectLogInQuery = 'SELECT account, password, token, attempt_count FROM log_in_table WHERE account= ?';
+        //  SELECT LOG IN QUERY.
+      const selectLogInQuery = 'SELECT account, password, token, attempt_count FROM log_in_table WHERE account= ?';
 
-        connection.query(selectLogInQuery, accountInput, (err, selectLogInResult) => {
-          if(err) {throw err};
+      connection.query(selectLogInQuery, accountInput, (err, selectLogInResult) => {
+        if(err) {throw err};
 
-          if(selectLogInResult.length > 0) {
-            if(parseInt(selectLogInResult[0].attempt_count) < 4) {
-                //  SELECT TOKEN QUERY.
-              const selectTokenQuery = 'SELECT token FROM log_in_table';
+        if(selectLogInResult.length > 0) {
+          if(parseInt(selectLogInResult[0].attempt_count) < 5) {
 
-              connection.query(selectTokenQuery, (err, selectTokenResult) => {
-                if(err) {throw err};
+              //  INSERT LOG IN QUERY.
+            const insertLogInQuery = 'UPDATE log_in_table SET attempt_count = ? WHERE account = ?';
 
-                tokenFunction();
+              //  VALUE FOR insertLogInValue.
+            const insertLogInValue = [
+                                      parseInt(selectLogInResult[0].attempt_count) + 1,
+                                      account
+                                     ];
 
-                if(selectTokenResult.length > 0) {
-                  for(let i = 0; i < selectLogInResult.length; i++) {
-                    if(selectTokenResult.token == token) {
-                      token = '';
-                      tokenFunction();
+            connection.query(insertLogInQuery, insertLogInValue, (err, insertLogInResult) => {
+              if(err) {throw err};                
 
-                      i = 0;
-
-                    };
-
-                  };
-                    
-                };
-
-                  //  INSERT LOG IN QUERY.
-                const insertLogInQuery = 'UPDATE log_in_table SET token = ?, attempt_count = ? WHERE token = ?';
-
-                  //  VALUE FOR insertLogInValue.
-                const insertLogInValue = [
-                                          token,
-                                          parseInt(selectLogInResult[0].attempt_count) + 1,
-                                          selectLogInResult[0].token
-                                        ];
-
-                connection.query(insertLogInQuery, insertLogInValue, (err, insertLogInResult) => {
-                  if(err) {throw err};                    
-
-                    res.json({account: account});
-
-                });
-
-              });
-
-            } else {
-                //  UPADTE CUSTOMER PASSWORD QUERY.
-              const updateCustomerPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE (user_name = ? OR email_address = ?)';
-
-                //  VALUE FOR updateCustomerPasswordValue.
-              const updateCustomerPasswordValue = [null, selectLogInResult[0].account, selectLogInResult[0].account];
-
-              connection.query(updateCustomerPasswordQuery, updateCustomerPasswordValue, (err, updateCustomerPasswordResult) => {
-                if(err) {throw err};
-
-                //  UPADTE AGENT PASSWORD QUERY.
-                const updateAgentPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE (user_name = ? OR email_address = ?)';
-
-                  //  VALUE FOR updateAgentPasswordValue.
-                const updateAgentPasswordValue = [null, selectLogInResult[0].account, selectLogInResult[0].account];
-
-                connection.query(updateAgentPasswordQuery, updateAgentPasswordValue, (err, updateAgentPasswordResult) => {
-                  if(err) {throw err};
-                
-                    //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                    //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                  res.json("");
-
-                });
-
-              });
-
-            };
-
-          } else {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM log_in_table';
-
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
-
-              tokenFunction();
-
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectLogInResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
-
-                    i = 0;
-
-                  };
-
-                };
-                    
-              };
-
-                //  INSERT LOG IN QUERY.
-              const insertLogInQuery = 'INSERT INTO log_in_table (account, password, token, attempt_count) VALUES (?, ?, ?, ?)';
-
-                //  VALUE FOR insertLogInValue.
-              const insertLogInValue = [
-                                        accountInput,
-                                        passwordInput,
-                                        token,
-                                        1
-                                      ];
-
-              connection.query(insertLogInQuery, insertLogInValue, (err, insertLogInResult) => {
-                if(err) {throw err};
-
-                res.json({account: account});
-
-              });
+              res.json({account: account});
 
             });
 
+          } else {
+              //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+              //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+            res.json("");
+
           };
 
-        });
-        
-      } else {
-          //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-          //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-        res.json("");
+        } else {
+            //  INSERT LOG IN QUERY.
+          const insertLogInQuery = 'INSERT INTO log_in_table (account, attempt_count) VALUES (?, ?)';
 
-      };
+            //  VALUE FOR insertLogInValue.
+          const insertLogInValue = [
+                              accountInput,
+                              1
+                              ];
+
+          connection.query(insertLogInQuery, insertLogInValue, (err, insertLogInResult) => {
+            if(err) {throw err};
+
+            res.json({account: account});
+
+          });
+
+        };
+
+      });
               
     } else {
       res.json({account: account});
@@ -1182,71 +958,81 @@ app.post('/forgot-password', (req, res) => {
         if(err) {throw err};
 
         if(selectForgetPasswordResult.length > 0) {
-          if(selectForgetPasswordResult[0].attempt_count != null) {
-            if(parseInt(selectForgetPasswordResult[0].attempt_count) < 4) {
-                //  SELECT TOKEN QUERY.
-              const selectTokenQuery = 'SELECT token FROM forget_password_table';
+          if(parseInt(selectForgetPasswordResult[0].attempt_count) < 5) {
+              //  SELECT TOKEN QUERY.
+            const selectTokenQuery = 'SELECT token FROM forget_password_table';
 
-              connection.query(selectTokenQuery, (err, selectTokenResult) => {
-                if(err) {throw err};
+            connection.query(selectTokenQuery, (err, selectTokenResult) => {
+              if(err) {throw err};
 
-                tokenFunction();
+              tokenFunction();
 
-                if(selectTokenResult.length > 0) {
-                  for(let i = 0; i < selectForgetPasswordResult.length; i++) {
-                    if(selectTokenResult.token == token) {
-                      token = '';
-                      tokenFunction();
+              if(selectTokenResult.length > 0) {
+                for(let i = 0; i < selectForgetPasswordResult.length; i++) {
+                  if(selectTokenResult.token == token) {
+                    token = '';
+                    tokenFunction();
 
-                      i = 0;
-
-                    };
+                    i = 0;
 
                   };
-                    
-                };
 
-                const d = new Date();
-                d.setMinutes(d.getMinutes() + 30);
-                const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                };
+                    
+              };
+
+              const d = new Date();
+              const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                    (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                     d.getDate().toString().padStart(2, "0") + ' ' +
                                     d.getHours().toString().padStart(2, "0") + ':' +
                                     d.getMinutes().toString().padStart(2, "0") + ':' +
                                     d.getSeconds().toString().padStart(2, "0");
 
-                  //  INSERT PROXY USER QUERY.
-                const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
+              d.setMinutes(d.getMinutes() + 30);
+              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                 (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                  d.getDate().toString().padStart(2, "0") + ' ' +
+                                  d.getHours().toString().padStart(2, "0") + ':' +
+                                  d.getMinutes().toString().padStart(2, "0") + ':' +
+                                  d.getSeconds().toString().padStart(2, "0");
 
-                  //  VALUE FOR insertForgetPasswordValue.
-                const insertForgetPasswordValue = [
-                                                   token,
-                                                   dateExpired,
-                                                   parseInt(selectForgetPasswordResult[0].attempt_count) + 1,
-                                                   null,
-                                                   selectForgetPasswordResult[0].token
-                                                 ];
+                //  INSERT PROXY USER QUERY.
+              const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
 
-                connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
-                  if(err) {throw err};
+                //  VALUE FOR insertForgetPasswordValue.
+              const insertForgetPasswordValue = [
+                                                 token,
+                                                 dateExpired,
+                                                 parseInt(selectForgetPasswordResult[0].attempt_count) + 1,
+                                                 dateAttempted,
+                                                 selectForgetPasswordResult[0].token
+                                               ];
 
-                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
+              connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
+                if(err) {throw err};
 
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                emailSender(selectForgetPasswordResult[0].recovery_email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
-                  res.json({recoveryEmailAddress: recoveryEmailAddress});
-
-                });
+                res.json({recoveryEmailAddress: recoveryEmailAddress});
 
               });
 
-            } else {
+            });
+
+          } else {
+            const d = new Date();         
+            d.setMinutes(d.getMinutes() + 30);
+
+            const dateAttempted = new Date(selectForgetPasswordResult[0].date_attempted);
+
+            if(d < dateAttempted) {
                 //  SELECT TOKEN QUERY.
               const selectTokenQuery = 'SELECT token FROM forget_password_table';
 
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
-                
+
                 tokenFunction();
 
                 if(selectTokenResult.length > 0) {
@@ -1264,15 +1050,6 @@ app.post('/forgot-password', (req, res) => {
                 };
 
                 const d = new Date();
-                d.setMinutes(d.getMinutes() + 30);
-                const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                   (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                    d.getDate().toString().padStart(2, "0") + ' ' +
-                                    d.getHours().toString().padStart(2, "0") + ':' +
-                                    d.getMinutes().toString().padStart(2, "0") + ':' +
-                                    d.getSeconds().toString().padStart(2, "0");
-
-                d.setMinutes(d.getMinutes() + 30);
                 const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                      (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
                                       d.getDate().toString().padStart(2, "0") + ' ' +
@@ -1280,59 +1057,6 @@ app.post('/forgot-password', (req, res) => {
                                       d.getMinutes().toString().padStart(2, "0") + ':' +
                                       d.getSeconds().toString().padStart(2, "0");
 
-                  //  INSERT PROXY USER QUERY.
-                const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
-
-                  //  VALUE FOR insertForgetPasswordValue.
-                const insertForgetPasswordValue = [
-                                                   token,
-                                                   dateExpired,
-                                                   null,
-                                                   dateAttempted,
-                                                   selectForgetPasswordResult[0].token
-                                                 ];
-
-                connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
-                  if(err) {throw err};
-                  
-                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
-
-                  res.json({recoveryEmailAddress: recoveryEmailAddress});
-
-                });
-
-              });
-
-            };
-
-          } else {
-            const dateAttempted = new Date(selectForgetPasswordResult[0].date_attempted);
-            const d = new Date();
-
-            if(dateAttempted < d) {
-                //  SELECT TOKEN QUERY.
-              const selectTokenQuery = 'SELECT token FROM forget_password_table';
-
-              connection.query(selectTokenQuery, (err, selectTokenResult) => {
-                if(err) {throw err};
-
-                tokenFunction();
-
-                if(selectTokenResult.length > 0) {
-                  for(let i = 0; i < selectForgetPasswordResult.length; i++) {
-                    if(selectTokenResult.token == token) {
-                      token = '';
-                      tokenFunction();
-
-                      i = 0;
-
-                    };
-
-                  };
-                    
-                };
-
-                const d = new Date();
                 d.setMinutes(d.getMinutes() + 30);
                 const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                    (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
@@ -1349,14 +1073,14 @@ app.post('/forgot-password', (req, res) => {
                                                    token,
                                                    dateExpired,
                                                    1,
-                                                   null,
+                                                   dateAttempted,
                                                    selectForgetPasswordResult[0].token
                                                  ];
 
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
-                  
-                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
+
+                  emailSender(selectForgetPasswordResult[0].recovery_email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1365,12 +1089,10 @@ app.post('/forgot-password', (req, res) => {
               });
 
             } else {
-              const dateAttempted = selectForgetPasswordResult[0].date_attempted;
-
               res.json({dateAttempted: dateAttempted});
 
             };
-            
+
           };
 
         } else {
@@ -1397,6 +1119,13 @@ app.post('/forgot-password', (req, res) => {
             };
 
             const d = new Date();
+            const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                 (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                  d.getDate().toString().padStart(2, "0") + ' ' +
+                                  d.getHours().toString().padStart(2, "0") + ':' +
+                                  d.getMinutes().toString().padStart(2, "0") + ':' +
+                                  d.getSeconds().toString().padStart(2, "0");
+
             d.setMinutes(d.getMinutes() + 30);
             const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
@@ -1406,23 +1135,24 @@ app.post('/forgot-password', (req, res) => {
                                 d.getSeconds().toString().padStart(2, "0");
 
               //  INSERT PROXY USER QUERY.
-            const insertForgetPasswordQuery = 'INSERT INTO forget_password_table (first_name, last_name, recovery_email_address, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?)';
+            const insertForgetPasswordQuery = 'INSERT INTO forget_password_table (first_name, last_name, password, recovery_email_address, token, date_expired, attempt_count, date_attempted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
               //  VALUE FOR insertForgetPasswordValue.
             const insertForgetPasswordValue = [
                                                selectUserResult[0].first_name,
                                                selectUserResult[0].last_name,
+                                               selectUserResult[0].password,
                                                selectUserResult[0].recovery_email_address,
                                                token,
                                                dateExpired,
                                                1,
-                                               null
+                                               dateAttempted
                                              ];
 
             connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
               if(err) {throw err};
 
-              emailSender(selectUserResult[0].email_address, selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
+              emailSender(selectUserResult[0].recovery_email_address, selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectUserResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
               res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1462,8 +1192,77 @@ app.post('/password-change-link', (req, res) => {
           res.json("");
 
       } else {
-        if(selectForgetPasswordResult[0].attempt_count != null) {
-          if(parseInt(selectForgetPasswordResult[0].attempt_count) < 4) {
+        if(parseInt(selectForgetPasswordResult[0].attempt_count) < 5) {
+            //  SELECT TOKEN QUERY.
+          const selectTokenQuery = 'SELECT token FROM forget_password_table';
+
+          connection.query(selectTokenQuery, (err, selectTokenResult) => {
+            if(err) {throw err};
+
+            tokenFunction();
+
+            if(selectTokenResult.length > 0) {
+              for(let i = 0; i < selectForgetPasswordResult.length; i++) {
+                if(selectTokenResult.token == token) {
+                  token = '';
+                  tokenFunction();
+
+                  i = 0;
+
+                };
+
+              };
+                  
+            };
+
+            const d = new Date();
+            const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                 (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                  d.getDate().toString().padStart(2, "0") + ' ' +
+                                  d.getHours().toString().padStart(2, "0") + ':' +
+                                  d.getMinutes().toString().padStart(2, "0") + ':' +
+                                  d.getSeconds().toString().padStart(2, "0");
+
+            d.setMinutes(d.getMinutes() + 30);
+            const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                               (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                d.getDate().toString().padStart(2, "0") + ' ' +
+                                d.getHours().toString().padStart(2, "0") + ':' +
+                                d.getMinutes().toString().padStart(2, "0") + ':' +
+                                d.getSeconds().toString().padStart(2, "0");
+
+              //  INSERT PROXY USER QUERY.
+            const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
+
+              //  VALUE FOR insertForgetPasswordValue.
+            const insertForgetPasswordValue = [
+                                               token,
+                                               dateExpired,
+                                               parseInt(selectForgetPasswordResult[0].attempt_count) + 1,
+                                               dateAttempted,
+                                               selectForgetPasswordResult[0].token
+                                              ];
+
+            connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
+              if(err) {throw err};
+
+              emailSender(selectForgetPasswordResult[0].recovery_email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
+
+                //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+                //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+              res.json("");
+
+            });
+
+          });
+
+        } else {
+          const d = new Date();         
+          d.setMinutes(d.getMinutes() + 30);
+
+          const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
+
+          if(d < dateAttempted) {
               //  SELECT TOKEN QUERY.
             const selectTokenQuery = 'SELECT token FROM forget_password_table';
 
@@ -1483,10 +1282,17 @@ app.post('/password-change-link', (req, res) => {
                   };
 
                 };
-                    
+                  
               };
 
               const d = new Date();
+              const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                                   (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                                    d.getDate().toString().padStart(2, "0") + ' ' +
+                                    d.getHours().toString().padStart(2, "0") + ':' +
+                                    d.getMinutes().toString().padStart(2, "0") + ':' +
+                                    d.getSeconds().toString().padStart(2, "0");
+
               d.setMinutes(d.getMinutes() + 30);
               const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
                                  (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
@@ -1495,152 +1301,26 @@ app.post('/password-change-link', (req, res) => {
                                   d.getMinutes().toString().padStart(2, "0") + ':' +
                                   d.getSeconds().toString().padStart(2, "0");
 
-                  //  INSERT PROXY USER QUERY.
-                const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
+                //  INSERT PROXY USER QUERY.
+              const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
 
-                  //  VALUE FOR insertForgetPasswordValue.
-                const insertForgetPasswordValue = [
-                                                   token,
-                                                   dateExpired,
-                                                   parseInt(selectForgetPasswordResult[0].attempt_count) + 1,
-                                                   null,
-                                                   selectForgetPasswordResult[0].token
-                                                 ];
+                //  VALUE FOR insertForgetPasswordValue.
+              const insertForgetPasswordValue = [
+                                                token,
+                                                dateExpired,
+                                                1,
+                                                dateAttempted,
+                                                selectForgetPasswordResult[0].token
+                                               ];
 
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
-                
-                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
+
+                emailSender(selectForgetPasswordResult[0].recovery_email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].recovery_email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
                 res.json("");
-
-              });
-
-            });
-
-          } else {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM forget_password_table';
-
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
-
-              tokenFunction();
-
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectForgetPasswordResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
-
-                    i = 0;
-
-                  };
-
-                };
-                    
-              };
-
-              const d = new Date();
-              d.setMinutes(d.getMinutes() + 30);
-              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                  d.getDate().toString().padStart(2, "0") + ' ' +
-                                  d.getHours().toString().padStart(2, "0") + ':' +
-                                  d.getMinutes().toString().padStart(2, "0") + ':' +
-                                  d.getSeconds().toString().padStart(2, "0");
-
-              d.setMinutes(d.getMinutes() + 30);
-              const dateAttempted = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                   (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                    d.getDate().toString().padStart(2, "0") + ' ' +
-                                    d.getHours().toString().padStart(2, "0") + ':' +
-                                    d.getMinutes().toString().padStart(2, "0") + ':' +
-                                    d.getSeconds().toString().padStart(2, "0");
-
-                  //  INSERT PROXY USER QUERY.
-                const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
-
-                  //  VALUE FOR insertForgetPasswordValue.
-                const insertForgetPasswordValue = [
-                                                   token,
-                                                   dateExpired,
-                                                   null,
-                                                   dateAttempted,
-                                                   selectForgetPasswordResult[0].token
-                                                 ];
-
-              connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
-                if(err) {throw err};
-                
-                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
-
-                  //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-                  //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-                res.json("");
-
-              });
-
-            });
-
-          };
-
-        } else {
-          const dateAttempted = new Date(selectProxyUserResult[0].date_attempted);
-          const d = new Date();
-
-          if(dateAttempted < d) {
-              //  SELECT TOKEN QUERY.
-            const selectTokenQuery = 'SELECT token FROM forget_password_table';
-
-            connection.query(selectTokenQuery, (err, selectTokenResult) => {
-              if(err) {throw err};
-
-              tokenFunction();
-
-              if(selectTokenResult.length > 0) {
-                for(let i = 0; i < selectForgetPasswordResult.length; i++) {
-                  if(selectTokenResult.token == token) {
-                    token = '';
-                    tokenFunction();
-
-                    i = 0;
-
-                  };
-
-                };
-                    
-              };
-
-              const d = new Date();
-              d.setMinutes(d.getMinutes() + 30);
-              const dateExpired = d.getFullYear().toString().padStart(4, "0")  + '-' +
-                                (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
-                                  d.getDate().toString().padStart(2, "0") + ' ' +
-                                  d.getHours().toString().padStart(2, "0") + ':' +
-                                  d.getMinutes().toString().padStart(2, "0") + ':' +
-                                  d.getSeconds().toString().padStart(2, "0");
-
-                  //  INSERT PROXY USER QUERY.
-                const insertForgetPasswordQuery = 'UPDATE forget_password_table SET token = ?, date_expired = ?, attempt_count = ?, date_attempted = ? WHERE token = ?';
-
-                  //  VALUE FOR insertForgetPasswordValue.
-                const insertForgetPasswordValue = [
-                                                   token,
-                                                   dateExpired,
-                                                   1,
-                                                   null,
-                                                   selectForgetPasswordResult[0].token
-                                                 ];
-
-              connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
-                if(err) {throw err};
-                
-                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
-
-                res.json({emailAddress: emailAddress});
 
               });
 
@@ -1737,6 +1417,8 @@ app.post('/password-change', (req, res) => {
     //  USER INPUTS.
   const recoveryEmailAddressInput = req.body.recoveryEmailAddressInput;
   const tokenInput = req.body.tokenInput;
+  const newPasswordInput = req.body.newPasswordInput;
+  const confirmPasswordInput = req.body.confirmPasswordInput;
 
     //  SELECT FORGET PASSWORD QUERY.
   const selectForgetPasswordQuery = 'SELECT first_name, last_name, recovery_email_address, token, date_expired, attempt_count, date_attempted FROM forget_password_table WHERE token = ?';
@@ -1750,137 +1432,143 @@ app.post('/password-change', (req, res) => {
           //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
         res.json("");
 
-      } else {
-          //  USER INPUTS.
-        const newPasswordInput = req.body.newPasswordInput;
-        const confirmPasswordInput = req.body.confirmPasswordInput;
-        
-          //  LENGTH.
-        let length = '';
+      } else { 
+        if(selectForgetPasswordResult[0].password != newPasswordInput) {       
+            //  LENGTH.
+          let length = '';
 
-        if(newPasswordInput.length > 5) {
-          length = "NEW PASSWORD MEETS THE REQUIRED LENGTH!";
-        } else {
-          length = "NEW PASSWORD DIDN'T MEET THE REQUIRED LENGTH!";
-        };
+          if(newPasswordInput.length > 5) {
+            length = "NEW PASSWORD MEETS THE REQUIRED LENGTH!";
+          } else {
+            length = "NEW PASSWORD DIDN'T MEET THE REQUIRED LENGTH!";
+          };
 
-          //  LOWER CASE LETTER.
-        let lowerCase;
+            //  LOWER CASE LETTER.
+          let lowerCase;
 
-        if(newPasswordInput.match(/[a-z]/) != null) {
-          lowerCase = "NEW PASSWORD HAS LOWER CASE!";  
-        } else {
-          lowerCase = "NEW PASSWORD HAS NO LOWER CASE!";
-        };
+          if(newPasswordInput.match(/[a-z]/) != null) {
+            lowerCase = "NEW PASSWORD HAS LOWER CASE!";  
+          } else {
+            lowerCase = "NEW PASSWORD HAS NO LOWER CASE!";
+          };
 
-          //  NUMBER.
-        let number;
+            //  NUMBER.
+          let number;
 
-        if(newPasswordInput.match(/\d/) != null) {
-          number = "NEW PASSWORD HAS NUMBER!";
-        } else {
-          number = "NEW PASSWORD HAS NO NUMBER!";
-        };
+          if(newPasswordInput.match(/\d/) != null) {
+            number = "NEW PASSWORD HAS NUMBER!";
+          } else {
+            number = "NEW PASSWORD HAS NO NUMBER!";
+          };
 
-          //  SPACE.
-        let space;
+            //  SPACE.
+          let space;
 
-        if(newPasswordInput.match(" ") != null) {
-          space = "NEW PASSWORD HAS SAPCE!";
-        } else {
-          space = "NEW PASSWORD HAS NO SPACE!";
-        };
+          if(newPasswordInput.match(" ") != null) {
+            space = "NEW PASSWORD HAS SAPCE!";
+          } else {
+            space = "NEW PASSWORD HAS NO SPACE!";
+          };
 
-          //  SPECIAL CHARACTER.
-        let specialCharacter;
+            //  SPECIAL CHARACTER.
+          let specialCharacter;
 
-        if(newPasswordInput.match(/\W/) != null) {
-          specialCharacter = "NEW PASSWORD HAS SPECIAL CHARACTER!";
-        } else {
-          specialCharacter = "NEW PASSWORD HAS NO SPECIAL CHARACTER!";
-        };
+          if(newPasswordInput.match(/\W/) != null) {
+            specialCharacter = "NEW PASSWORD HAS SPECIAL CHARACTER!";
+          } else {
+            specialCharacter = "NEW PASSWORD HAS NO SPECIAL CHARACTER!";
+          };
 
-          //  UPPER CASE LETTER.
-        let upperCase;
+            //  UPPER CASE LETTER.
+          let upperCase;
 
-        if(newPasswordInput.match(/[A-Z]/) != null) {
-          upperCase = "NEW PASSWORD HAS UPPER CASE!";
-        } else {
-          upperCase = "NEW PASSWORD HAS NO UPPER CASE!";
-        };
+          if(newPasswordInput.match(/[A-Z]/) != null) {
+            upperCase = "NEW PASSWORD HAS UPPER CASE!";
+          } else {
+            upperCase = "NEW PASSWORD HAS NO UPPER CASE!";
+          };
 
-          // SAME.
-        let same = '';
+            // SAME.
+          let same = '';
 
-        if(selectForgetPasswordResult[0].password != newPasswordInput) {
-          same = "NEW PASSWORD IS NOT THE SAME AS THE OLD PASSWORD!";
-        } else {
-          same = "NEW PASSWORD IS THE SAME AS THE OLD PASSWORD!";
-        };
+          if(selectForgetPasswordResult[0].password != newPasswordInput) {
+            same = "NEW PASSWORD IS NOT THE SAME AS THE OLD PASSWORD!";
+          } else {
+            same = "NEW PASSWORD IS THE SAME AS THE OLD PASSWORD!";
+          };
 
-          //  NEW PASSWORD.
-        let newPassword = '';
+            //  NEW PASSWORD.
+          let newPassword = '';
 
-        if(
-          length != "NEW PASSWORD DIDN'T MEET THE REQUIRED LENGTH!" &&
-          lowerCase != "NEW PASSWORD HAS NO LOWER CASE!" &&
-          number != "NEW PASSWORD HAS NO NUMBER!" &&
-          specialCharacter != "NEW PASSWORD HAS NO SPECIAL CHARACTER!" &&
-          space != "NEW PASSWORD HAS SPACE!" &&
-          upperCase != "NEW PASSWORD HAS NO UPPER CASE!" &&
-          same != "NEW PASSWORD IS THE SAME AS THE OLD PASSWORD!"
-        ) {
-          newPassword = "NEW PASSWORD FOUND!";
-        } else {
-          newPassword = "NEW PASSWORD NOT FOUND!";
-        };
+          if(
+            length != "NEW PASSWORD DIDN'T MEET THE REQUIRED LENGTH!" &&
+            lowerCase != "NEW PASSWORD HAS NO LOWER CASE!" &&
+            number != "NEW PASSWORD HAS NO NUMBER!" &&
+            specialCharacter != "NEW PASSWORD HAS NO SPECIAL CHARACTER!" &&
+            space != "NEW PASSWORD HAS SPACE!" &&
+            upperCase != "NEW PASSWORD HAS NO UPPER CASE!" &&
+            same != "NEW PASSWORD IS THE SAME AS THE OLD PASSWORD!"
+          ) {
+            newPassword = "NEW PASSWORD FOUND!";
+          } else {
+            newPassword = "NEW PASSWORD NOT FOUND!";
+          };
 
-          // CONFIRM PASSWORD.
-        let confirmPassword = '';
+            // CONFIRM PASSWORD.
+          let confirmPassword = '';
 
-        if(confirmPasswordInput != newPasswordInput) {
-          confirmPassword = "CONFIRM PASSWORD NOT FOUND!";
-        } else {
-          confirmPassword = "CONFIRM PASSWORD FOUND!";
-        };
+          if(confirmPasswordInput != newPasswordInput) {
+            confirmPassword = "CONFIRM PASSWORD NOT FOUND!";
+          } else {
+            confirmPassword = "CONFIRM PASSWORD FOUND!";
+          };
 
-        if(newPassword != "NEW PASSWORD NOT FOUND!" && confirmPassword != "CONFIRM PASSWORD NOT FOUND!") {
-            //  UPADTE CUSTOMER PASSWORD QUERY.
-          const updateCustomerPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE recovery_email_address = ?';
+          if(newPassword != "NEW PASSWORD NOT FOUND!" && confirmPassword != "CONFIRM PASSWORD NOT FOUND!") {
+              //  UPADTE CUSTOMER PASSWORD QUERY.
+            const updateCustomerPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE recovery_email_address = ?';
 
-            //  VALUE FOR updateeCustomerPasswordValue.
-          const updateeCustomerPasswordValue = [newPasswordInput, recoveryEmailAddressInput];
+              //  VALUE FOR updateeCustomerPasswordValue.
+            const updateeCustomerPasswordValue = [newPasswordInput, recoveryEmailAddressInput];
 
-          connection.query(updateCustomerPasswordQuery, updateeCustomerPasswordValue, (err, updateeCustomerPasswordResult) => {
-            if(err) {throw err};
-
-              //  UPADTE AGENT PASSWORD QUERY.
-            const updateAgentPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE recovery_email_address = ?';
-
-              //  VALUE FOR updateAgentPasswordValue.
-            const updateAgentPasswordValue = [newPasswordInput, recoveryEmailAddressInput];
-
-            connection.query(updateAgentPasswordQuery, updateAgentPasswordValue, (err, updateAgentPasswordResult) => {
+            connection.query(updateCustomerPasswordQuery, updateeCustomerPasswordValue, (err, updateeCustomerPasswordResult) => {
               if(err) {throw err};
 
-                //  DELETE FORGET PASSWORD QUERY.
-              const deleteForgetPasswordQuery = 'DELETE FROM forget_password_table WHERE token = ?';
+                //  UPADTE AGENT PASSWORD QUERY.
+              const updateAgentPasswordQuery = 'UPDATE main_user_table SET password = ? WHERE recovery_email_address = ?';
 
-              connection.query(deleteForgetPasswordQuery, tokenInput, (err, deleteForgetPasswordResult) => {
+                //  VALUE FOR updateAgentPasswordValue.
+              const updateAgentPasswordValue = [newPasswordInput, recoveryEmailAddressInput];
+
+              connection.query(updateAgentPasswordQuery, updateAgentPasswordValue, (err, updateAgentPasswordResult) => {
                 if(err) {throw err};
 
-                res.json({newPassword: newPassword, confirmPassword: confirmPassword});
+                  //  DELETE FORGET PASSWORD QUERY.
+                const deleteForgetPasswordQuery = 'DELETE FROM forget_password_table WHERE token = ?';
 
-              });
+                connection.query(deleteForgetPasswordQuery, tokenInput, (err, deleteForgetPasswordResult) => {
+                  if(err) {throw err};
 
-          });
+                  res.json({newPassword: newPassword, confirmPassword: confirmPassword});
 
-          });
+                });
+
+            });
+
+            });
+
+          } else {
+            res.json({newPassword: newPassword, confirmPassword: confirmPassword});
+                      
+          };
 
         } else {
-          res.json({newPassword: newPassword, confirmPassword: confirmPassword});
-                    
-        };};
+            //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+            //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+          res.json("");
+
+        };
+        
+      };
 
     } else {
         //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
@@ -3480,6 +3168,25 @@ app.post('/mark-sold', (req, res) => {
   };
 
 });
+
+  //  TRIGGER THE OPEN STREET MAP END-POINT THROUGH THIS API SINCE BACK-END IS CORS ENABLED.
+app.post('/search-location', async (req, res) => {
+  const searchInput = req.body.locationValue;
+
+    //  END-POINT PROVIDED BY NOMINATIM TO FETCH DATA FROM OPEN STREET MAP.
+  const response = await fetch('https://nominatim.openstreetmap.org/search?q=' + searchInput + '&format=json',);
+  const data = await response.json();
+
+    //  INITIALIZED displayNameValue.
+  const displayNameValue = [];
+
+    //  PUSH EVERY FETCHED DISPLAY NAME TO displayNameValue.
+  for(let i = 0; i < data.length; i++) {
+    displayNameValue.push(data[i].display_name);
+  }
+
+  res.json({location: displayNameValue});
+})
 
 const uploadMiddleware = upload.fields([{ name: 'Main_image'}, { name: 'Additional_images', maxCount: 10 }])
 app.post('/add-house', uploadMiddleware, function (req, res) {
