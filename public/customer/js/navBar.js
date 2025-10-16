@@ -65,7 +65,7 @@ async function user() {
 
             profileButton.type = "image";
             profileButton.name = "Profile button";
-            profileButton.src = "../resources/BUYER ICONS AND LOGOS/profile.png";
+            profileButton.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/profile.png";
             profileButton.alt = "Profile icon";
             profileButton.id = "profileIcon";
             div.id = "user";
@@ -120,7 +120,7 @@ async function user() {
             
                 profileButton.type = "image";
                 profileButton.name = "Profile button";
-                profileButton.src = '../resources/BUYER ICONS AND LOGOS/profile.png';
+                profileButton.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/profile.png';
                 profileButton.alt = "Profile icon";
                 profileButton.id = "profileIcon";
            
@@ -165,15 +165,15 @@ async function user() {
 
             savedProperties.href = "./savedPropertiesPage.html";
             savedProperties.innerHTML = "SAVED PROPERTIES";
-            savedPropertiesIcon.src = "../resources/BUYER ICONS AND LOGOS/brown full heart.png";
+            savedPropertiesIcon.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/brown full heart.png";
             savedPropertiesIcon.alt = "Saved properties Icon";
             savedPropertiesIcon.type = "";
             toursReservations.href = "./tourReservationActive.html";
             toursReservations.innerHTML = "MY TOURS & RESERVATIONS";
-            toursReservationsIcon.src = "../resources/BUYER ICONS AND LOGOS/my reservations.png";
+            toursReservationsIcon.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/my reservations.png";
             toursReservationsIcon.alt = "My tours and reservations Icon";
             toursReservationsIcon.type = "";
-            logOutIcon.src = "../resources/BUYER ICONS AND LOGOS/logout.png";
+            logOutIcon.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/logout.png";
             logOutIcon.alt = "Log out Icon";
             logOutIcon.type = "";
             logOut.innerHTML = "LOG OUT";
@@ -213,7 +213,7 @@ async function user() {
 
         profileButton.type = "image";
         profileButton.name = "Profile button";
-        profileButton.src = "../resources/BUYER ICONS AND LOGOS/profile.png";
+        profileButton.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/BUYER ICONS AND LOGOS/profile.png";
         profileButton.alt = "Profile icon";
         profileButton.id = "profileIcon";
         div.id = "user";

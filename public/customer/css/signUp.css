@@ -30,7 +30,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: url('../../resources/HOME PAGE/housebg.jpg') center/cover no-repeat;
+  background: url('../https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/HOME PAGE/housebg.jpg') center/cover no-repeat;
   filter: blur(6px);
   transform: scale(1.1); /* fixes edge blur cutoff */
   z-index: -1; /* sends it behind content */

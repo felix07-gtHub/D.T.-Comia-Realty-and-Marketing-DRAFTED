@@ -66,7 +66,7 @@ function enableFeaturedFunction() {
             featuredCheckbox.id = "featuredCheckBox" + featuredCheckBoxNumber;
             featuredLabel.htmlFor = "featuredCheckBox" + featuredCheckBoxNumber;
             featuredLabel.classList.add('featuredCheckbox');
-            featured.src = "../resources/AGENT ICONS/agent uncheckbox.png";
+            featured.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/agent uncheckbox.png";
             featured.alt = "Empty checkbox";
             featured.type = "";
 
@@ -76,12 +76,12 @@ function enableFeaturedFunction() {
 
             function featuredCheckboxFunction() {
                 if(featuredCheckbox.checked != true) {
-                    featured.src = "../resources/AGENT ICONS/agent uncheckbox.png";
+                    featured.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/agent uncheckbox.png";
                     featured.alt = "Empty checkbox";
                     featured.type = "";
 
                 } else {
-                    featured.src = "../resources/AGENT ICONS/agent checkbox.png";
+                    featured.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/agent checkbox.png";
                     featured.alt = "Checked checkbox";
                     featured.type = "";
 

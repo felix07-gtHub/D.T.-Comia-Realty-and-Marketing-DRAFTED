@@ -20,11 +20,11 @@ async function user() {
   const sidepaneluserName = document.querySelector('.profile-div p');
 
   
-    navProfilePicture.src = '../resources/AGENT ICONS/prof.png';
+    navProfilePicture.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/prof.png';
     navProfilePicture.alt = "Profile icon";
     navProfilePicture.type = "";
     
-    sidepanelProfilePicture.src = '../resources/AGENT ICONS/prof.png';
+    sidepanelProfilePicture.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/prof.png';
     sidepanelProfilePicture.alt = "Profile icon";
     sidepanelProfilePicture.type = "";
 

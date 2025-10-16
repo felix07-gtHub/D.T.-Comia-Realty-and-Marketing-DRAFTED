@@ -197,7 +197,7 @@ async function reservationListings() {
 
         action.type = "image";
         action.name = "Action";
-        action.src = "../resources/AGENT ICONS/new action.png";
+        action.src = "https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/AGENT ICONS/new action.png";
         action.alt = "Action icon";
 
         listings.appendChild(reservation)

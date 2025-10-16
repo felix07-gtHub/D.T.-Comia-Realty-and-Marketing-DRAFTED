@@ -8,23 +8,27 @@ const fs = require('node:fs');
 const session = require('express-session');
 const path = require('path');
 const Brevo = require('@getbrevo/brevo');
+const { createClient } = require('@supabase/supabase-js');
 
 const connection = mysql.createConnection({
-  host: 'maglev.proxy.rlwy.net',
-  port: '48611',
-  user: 'root',
-  password: 'MIHLBZEpjZocmZtlrpXkLJyTSiLhbpmY',
-  database: 'railway'
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
 });
 
 const app = express();
-const hostname = '0.0.0.0';
-const port = 3000;
+const hostname = process.env.HOST_NAME;
+const port = process.env.PORT;
 const apiInstance = new Brevo.TransactionalEmailsApi();
 // Configure API key authorization: api-key
 apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
 const sendSmtpEmail = new Brevo.SendSmtpEmail();
 sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
+const upload = multer({ storage: multer.memoryStorage() });
+// Create a single supabase client for interacting with your database
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
 
 
 
@@ -34,7 +38,7 @@ app.use(cors({
   credentials: true,            // Enable cookies and credentials
 }));
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
@@ -46,6 +50,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 connection.connect();
 
 
+
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+let token = '';
+
+  //  GENERATE TOKEN.
+function tokenFunction() {
+  for (let i = 0; i < 32; i++) {
+    const randomIndex = Math.floor(Math.random() * 63);
+    token += characters.charAt(randomIndex);
+  };
+};
+
+function emailSender (email, name, subject, text, html) {
+  sendSmtpEmail.to = [
+    {
+        "email": email,
+        "name": name
+    }
+  ];
+  sendSmtpEmail.subject = subject;
+  sendSmtpEmail.textContent = text;
+  sendSmtpEmail.htmlContent = html;
+
+  apiInstance.sendTransacEmail(sendSmtpEmail);
+
+};
 
   //  SIGN UP.
 app.post('/sign-up', (req, res) => {
@@ -222,17 +252,6 @@ app.post('/sign-up', (req, res) => {
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
 
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
-
                 tokenFunction();
 
                 if(selectTokenResult.length > 0) {
@@ -273,17 +292,7 @@ app.post('/sign-up', (req, res) => {
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
 
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                   res.json({
                             firstName: firstName2,
@@ -302,17 +311,6 @@ app.post('/sign-up', (req, res) => {
 
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
-
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
 
                 tokenFunction();
 
@@ -362,17 +360,7 @@ app.post('/sign-up', (req, res) => {
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
 
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                   res.json({
                             firstName: firstName2,
@@ -397,17 +385,6 @@ app.post('/sign-up', (req, res) => {
 
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
-
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
 
                 tokenFunction();
 
@@ -448,18 +425,8 @@ app.post('/sign-up', (req, res) => {
 
                 connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
                   if(err) {throw err};
-                  
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
 
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                   res.json({
                             firstName: firstName2,
@@ -487,17 +454,6 @@ app.post('/sign-up', (req, res) => {
 
           connection.query(selectTokenQuery, (err, selectTokenResult) => {
             if(err) {throw err};
-
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let token = '';
-
-              //  GENERATE TOKEN.
-            function tokenFunction() {
-              for (let i = 0; i < 32; i++) {
-                const randomIndex = Math.floor(Math.random() * 63);
-                token += characters.charAt(randomIndex);
-              };
-            };
 
             tokenFunction();
 
@@ -541,18 +497,8 @@ app.post('/sign-up', (req, res) => {
 
             connection.query(insertProxyUserQuery, insertProxyUserValue, (err, insertProxyUserResult) => {
               if(err) {throw err};
-              
-              sendSmtpEmail.to = [
-                                  {
-                                      "email": emailAddressInput,
-                                      "name": emailAddressInput
-                                  }
-                                 ];
-              sendSmtpEmail.subject = "Hello ✔";
-              sendSmtpEmail.textContent = "Hello world?";
-              sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
 
-              apiInstance.sendTransacEmail(sendSmtpEmail);
+              emailSender(emailAddressInput, firstNameInput + ' ' + firstNameInput, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + emailAddressInput + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
               res.json({
                         firstName: firstName2,
@@ -609,17 +555,6 @@ app.post('/email-verification-link', (req, res) => {
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
 
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
-
               tokenFunction();
 
               if(selectTokenResult.length > 0) {
@@ -672,17 +607,7 @@ app.post('/email-verification-link', (req, res) => {
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
                   
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                     //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                     //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -700,17 +625,6 @@ app.post('/email-verification-link', (req, res) => {
 
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
-
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
 
               tokenFunction();
 
@@ -772,17 +686,7 @@ app.post('/email-verification-link', (req, res) => {
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
 
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                     //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                     //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -806,17 +710,6 @@ app.post('/email-verification-link', (req, res) => {
 
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
-
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
 
               tokenFunction();
 
@@ -870,17 +763,7 @@ app.post('/email-verification-link', (req, res) => {
                 connection.query(deleteProxyUserQuery, deleteProxyUserValue, (err, deleteProxyUserResult) => {
                   if(err) {throw err};
                   
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectProxyUserResult[0].email_address,
-                                          "name": selectProxyUserResult[0].email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href=https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectProxyUserResult[0].email_address, selectProxyUserResult[0].first_name + ' ' + selectProxyUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html?emailAddress=" + selectProxyUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>");
 
                     //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                     //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -956,7 +839,7 @@ app.post('/email-verification', (req, res) => {
               //  GENERATE USER ID.
             function userIdFunction() {
               const randomIndex = Math.floor(Math.random() * 10000);
-              userId = selectProxyUserResult[0].first_name.charAt(0) + selectProxyUserResult[0].last_name.charAt(0) + dateJoined.substring(2 , 4) + randomIndex;
+              userId = "USER" + randomIndex;
             };
 
               //  SELECT USER ID QUERY.
@@ -1142,17 +1025,6 @@ app.post('/log-in', (req, res) => {
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
 
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
-
                 tokenFunction();
 
                 if(selectTokenResult.length > 0) {
@@ -1223,17 +1095,6 @@ app.post('/log-in', (req, res) => {
 
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
-
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
 
               tokenFunction();
 
@@ -1328,17 +1189,6 @@ app.post('/forgot-password', (req, res) => {
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
 
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
-
                 tokenFunction();
 
                 if(selectTokenResult.length > 0) {
@@ -1379,15 +1229,7 @@ app.post('/forgot-password', (req, res) => {
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
 
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
+                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   apiInstance.sendTransacEmail(sendSmtpEmail);
 
@@ -1403,18 +1245,7 @@ app.post('/forgot-password', (req, res) => {
 
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
-
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
-
+                
                 tokenFunction();
 
                 if(selectTokenResult.length > 0) {
@@ -1463,17 +1294,7 @@ app.post('/forgot-password', (req, res) => {
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
                   
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1493,17 +1314,6 @@ app.post('/forgot-password', (req, res) => {
 
               connection.query(selectTokenQuery, (err, selectTokenResult) => {
                 if(err) {throw err};
-
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let token = '';
-
-                  //  GENERATE TOKEN.
-                function tokenFunction() {
-                  for (let i = 0; i < 32; i++) {
-                    const randomIndex = Math.floor(Math.random() * 63);
-                    token += characters.charAt(randomIndex);
-                  };
-                };
 
                 tokenFunction();
 
@@ -1545,17 +1355,7 @@ app.post('/forgot-password', (req, res) => {
                 connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                   if(err) {throw err};
                   
-                  sendSmtpEmail.to = [
-                                      {
-                                          "email": selectForgetPasswordResult[0].recovery_email_address,
-                                          "name": selectForgetPasswordResult[0].recovery_email_address
-                                      }
-                                     ];
-                  sendSmtpEmail.subject = "Hello ✔";
-                  sendSmtpEmail.textContent = "Hello world?";
-                  sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                  apiInstance.sendTransacEmail(sendSmtpEmail);
+                  emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1578,17 +1378,6 @@ app.post('/forgot-password', (req, res) => {
 
           connection.query(selectTokenQuery, (err, selectTokenResult) => {
             if(err) {throw err};
-
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let token = '';
-
-              //  GENERATE TOKEN.
-            function tokenFunction() {
-              for (let i = 0; i < 32; i++) {
-                const randomIndex = Math.floor(Math.random() * 63);
-                token += characters.charAt(randomIndex);
-              };
-            };
 
             tokenFunction();
 
@@ -1632,17 +1421,7 @@ app.post('/forgot-password', (req, res) => {
             connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
               if(err) {throw err};
 
-              sendSmtpEmail.to = [
-                                  {
-                                      "email": selectUserResult[0].recovery_email_address,
-                                      "name": selectUserResult[0].recovery_email_address
-                                  }
-                                 ];
-              sendSmtpEmail.subject = "Hello ✔";
-              sendSmtpEmail.textContent = "Hello world?";
-              sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-              apiInstance.sendTransacEmail(sendSmtpEmail);
+              emailSender(selectUserResult[0].email_address, selectUserResult[0].first_name + ' ' + selectUserResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectUserResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
               res.json({recoveryEmailAddress: recoveryEmailAddress});
 
@@ -1690,17 +1469,6 @@ app.post('/password-change-link', (req, res) => {
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
 
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
-
               tokenFunction();
 
               if(selectTokenResult.length > 0) {
@@ -1741,17 +1509,7 @@ app.post('/password-change-link', (req, res) => {
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
                 
-                sendSmtpEmail.to = [
-                                    {
-                                        "email": selectForgetPasswordResult[0].recovery_email_address,
-                                        "name": selectForgetPasswordResult[0].recovery_email_address
-                                    }
-                                   ];
-                sendSmtpEmail.subject = "Hello ✔";
-                sendSmtpEmail.textContent = "Hello world?";
-                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                apiInstance.sendTransacEmail(sendSmtpEmail);
+                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1767,17 +1525,6 @@ app.post('/password-change-link', (req, res) => {
 
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
-
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
 
               tokenFunction();
 
@@ -1827,17 +1574,7 @@ app.post('/password-change-link', (req, res) => {
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
                 
-                sendSmtpEmail.to = [
-                                    {
-                                        "email": selectForgetPasswordResult[0].recovery_email_address,
-                                        "name": selectForgetPasswordResult[0].recovery_email_address
-                                    }
-                                   ];
-                sendSmtpEmail.subject = "Hello ✔";
-                sendSmtpEmail.textContent = "Hello world?";
-                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                apiInstance.sendTransacEmail(sendSmtpEmail);
+                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                   //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
                   //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
@@ -1859,17 +1596,6 @@ app.post('/password-change-link', (req, res) => {
 
             connection.query(selectTokenQuery, (err, selectTokenResult) => {
               if(err) {throw err};
-
-              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-              let token = '';
-
-                //  GENERATE TOKEN.
-              function tokenFunction() {
-                for (let i = 0; i < 32; i++) {
-                  const randomIndex = Math.floor(Math.random() * 63);
-                  token += characters.charAt(randomIndex);
-                };
-              };
 
               tokenFunction();
 
@@ -1911,17 +1637,7 @@ app.post('/password-change-link', (req, res) => {
               connection.query(insertForgetPasswordQuery, insertForgetPasswordValue, (err, insertForgetPasswordResult) => {
                 if(err) {throw err};
                 
-                sendSmtpEmail.to = [
-                                    {
-                                        "email": selectForgetPasswordResult[0].recovery_email_address,
-                                        "name": selectForgetPasswordResult[0].recovery_email_address
-                                    }
-                                   ];
-                sendSmtpEmail.subject = "Hello ✔";
-                sendSmtpEmail.textContent = "Hello world?";
-                sendSmtpEmail.htmlContent = "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?recoveryEmailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/emailVerification.html</a>";
-
-                apiInstance.sendTransacEmail(sendSmtpEmail);
+                emailSender(selectForgetPasswordResult[0].email_address, selectForgetPasswordResult[0].first_name + ' ' + selectForgetPasswordResult[0].last_name, "Hello ✔", "Hello world?", "<a href='https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html?emailAddress=" + selectForgetPasswordResult[0].email_address + "&token=" + token + "'>https://dt-comia-realty-and-marketing-production.up.railway.app/customer/passwordVerification.html</a>");
 
                 res.json({emailAddress: emailAddress});
 
@@ -3010,7 +2726,7 @@ app.post('/reservation', (req, res) => {
               //  GENERATE RESERVATION ID.
             function reservationIdFunction() {
               const randomIndex = Math.floor(Math.random() * 10000);
-              reservationId = "RSRV" + reservataionPeriodFromInput.substring(2 , 4) + randomIndex;
+              reservationId = "RSRV" + randomIndex;
             };
 
               //  SELECT RESERVATION ID QUERY.
@@ -3764,59 +3480,6 @@ app.post('/mark-sold', (req, res) => {
 
 });
 
-  //  FILE STORING BLOCK.
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const locationInput = req.body.Location.replace(/[,]/g, "").replace(/[ ]/g, "_");
-  
-        //  PROPERTY ID.
-    let propertyId = ''; 
-
-    for(let i = 0; i < req.body.Location.split(/[, ]/g)[0].length; i++) {     
-      if(req.body.Location.charAt(i).match(/[^aeiou]/i)) {
-      propertyId += req.body.Location.charAt(i).toUpperCase();
-        };
-    };
-
-    propertyId += req.body.Date_created.substring(2, 4) + req.body.Random_numbers;
-  
-      //  THIS SETUP ALLOWS THE SYSTEM TO NAME FIRST A SUBFOLDER AS THE ID OF PROPERTY BEFORE UPLOADING THE FILES.
-    const folderName = './resources/PROPERTY/' + locationInput + '/' + propertyId + '/';
-
-    try {
-      if (!fs.existsSync(folderName)) {
-        fs.mkdirSync(folderName, { recursive: true });
-      };
-    } catch (err) {
-      console.error(err);
-    };
-
-    cb(null, folderName);
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-
-const upload = multer({ storage: storage });
-
-  /*
-    EXAMPLE FOLDER STRUCTURE:
-      resources/
-        PROPERTY/
-          [Location(1)]
-            [PROPERTY ID(1)]
-              FILE(ORIGINAL NAME)
-            [PROPERTY ID(2)]
-              FILE(ORIGINAL NAME)(1)
-              FILE(ORIGINAL NAME)(2)
-          [Location(2)]
-            [PROPERTY ID]
-              FILE(ORIGINAL NAME)(1)
-              FILE(ORIGINAL NAME)(2)
-              FILE(ORIGINAL NAME)(3)
-  */
-
 const uploadMiddleware = upload.fields([{ name: 'Main_image'}, { name: 'Additional_images', maxCount: 10 }])
 app.post('/add-house', uploadMiddleware, function (req, res) {
     //  USER INPUTS.
@@ -3930,9 +3593,52 @@ app.post('/add-house', uploadMiddleware, function (req, res) {
         connection.query(insertPropertyQuery, insertPropertyValue, (err, insertPropertyResult) => {
           if (err) {throw err};
 
-              //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-              //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-            res.json("");
+          async function imageUploader() {
+            const avatarFile = req.files['Main_image'][0]
+            const { data, error } = await supabase
+            .storage
+            .from('D.T. Comia Realty and Marketing')
+            .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
+              cacheControl: '3600',
+              upsert: false
+            })
+
+            if(req.files['Additional_images'] != undefined) {
+              for(let i = 0; i < req.files['Additional_images'].length; i++) {
+                const avatarFile = req.files['Additional_images'][i]
+                const { data, error } = await supabase
+                .storage
+                .from('D.T. Comia Realty and Marketing')
+                .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
+                  cacheControl: '3600',
+                  upsert: false
+                })
+              };
+            };
+          };  
+
+          /*
+            EXAMPLE FOLDER STRUCTURE:
+              resources/
+                PROPERTY/
+                  [Location(1)]
+                    [PROPERTY ID(1)]
+                      FILE(ORIGINAL NAME)
+                    [PROPERTY ID(2)]
+                      FILE(ORIGINAL NAME)(1)
+                      FILE(ORIGINAL NAME)(2)
+                  [Location(2)]
+                    [PROPERTY ID]
+                      FILE(ORIGINAL NAME)(1)
+                      FILE(ORIGINAL NAME)(2)
+                      FILE(ORIGINAL NAME)(3)
+          */
+
+          imageUploader().catch(console.error);
+
+            //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+            //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+          res.json("");
         });
       };
     });
@@ -4052,9 +3758,52 @@ app.post('/add-land', uploadMiddleware, function (req, res) {
         connection.query(insertPropertyQuery, insertPropertyValue, (err, insertPropertyResult) => {
           if (err) {throw err};
 
-              //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
-              //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
-            res.json("");
+          async function imageUploader() {
+            const avatarFile = req.files['Main_image'][0]
+            const { data, error } = await supabase
+            .storage
+            .from('D.T. Comia Realty and Marketing')
+            .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
+              cacheControl: '3600',
+              upsert: false
+            })
+
+            if(req.files['Additional_images'] != undefined) {
+              for(let i = 0; i < req.files['Additional_images'].length; i++) {
+                const avatarFile = req.files['Additional_images'][i]
+                const { data, error } = await supabase
+                .storage
+                .from('D.T. Comia Realty and Marketing')
+                .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
+                  cacheControl: '3600',
+                  upsert: false
+                })
+              };
+            };
+          };  
+
+          /*
+            EXAMPLE FOLDER STRUCTURE:
+              resources/
+                PROPERTY/
+                  [Location(1)]
+                    [PROPERTY ID(1)]
+                      FILE(ORIGINAL NAME)
+                    [PROPERTY ID(2)]
+                      FILE(ORIGINAL NAME)(1)
+                      FILE(ORIGINAL NAME)(2)
+                  [Location(2)]
+                    [PROPERTY ID]
+                      FILE(ORIGINAL NAME)(1)
+                      FILE(ORIGINAL NAME)(2)
+                      FILE(ORIGINAL NAME)(3)
+          */
+
+          imageUploader().catch(console.error);
+
+            //  IF USERS KEEPS SENDING THE SAME DATA OVER AND OVER THIS END-POINT WILL STOP,
+            //  TO AVOID THAT BACK-END MUST SEND SOMETHING BACK TO FRONT-END.
+          res.json("");
         });
       };
     });
