@@ -4,7 +4,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('../https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/HOME PAGE/housebg.jpg');
+  background-image: url('https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/HOME PAGE/housebg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
