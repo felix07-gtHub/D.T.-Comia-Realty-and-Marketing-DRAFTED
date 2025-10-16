@@ -356,79 +356,6 @@ description.addEventListener("input", inputChange);
 
 
 
-    //  HIDES THE locationSuggestion IF CLICKED OUTSIDE THE locationInput.
-function showHideSearchSuggestion(e) {
-    if(!locationInput.contains(e.target)) {
-        locationSuggestion.style.height = "0px";
-    } else {
-        locationSuggestion.style.height = "auto";
-    }
-}
-
-document.body.addEventListener("click", showHideSearchSuggestion);
-
-    //  FUNCTION FOR SEARCHING LOCATION.
-async function searchLocation() {
-    const locationValue = locationInput.value;
-
-    const response = await fetch('http://127.0.0.1:3000/search-location', {
-        method: 'POST',
-        headers: {                    
-                    'User-Agent': 'undici-stream-example',
-                    'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({locationValue})
-    });
-    const data = await response.json();
-
-        //  RESETS locationSuggestion EVERYTIME USER SEARCHES LOCATION TO AVOID FLOODING
-        //  THE locationSuggestions WITH UNRELATED SUGGESTIONS TO THE SEARCHED LOCATION.
-    locationSuggestion.innerHTML = "";
-
-    for(let i = 0; i < data.location.length; i++) {
-        const location = document.createElement('input');
-
-        location.type = "button";
-        location.name = data.location[i];
-        location.value = data.location[i];
-
-        locationSuggestion.appendChild(location);
-
-            //  FUNCTION FOR VALID INPUTS mouseenter.
-        function suggestedLocationInputsMousEnter(e) {
-            e.target.style.backgroundColor = '#252525';
-            e.target.style.color = 'white';
-        };
-
-        location.addEventListener("mouseenter", suggestedLocationInputsMousEnter);
-
-            //  FUNCTION FOR VALID INPUTS mouseleave.
-        function suggestedLocationInputsMousEave(e) {
-            e.target.style.backgroundColor = '#4e6e5d';
-            e.target.style.color = '#f5f8f6';
-        };
-
-        location.addEventListener("mouseleave", suggestedLocationInputsMousEave);
-
-        function selectSuggestedLocation() {
-            locationInput.value = location.value;
-
-            // store coords for saving later
-            locationInput.dataset.lat = data.lat[i];
-            locationInput.dataset.lng = data.lon[i];
-
-            searchLocation().catch(console.error);
-   
-}
-
-        location.addEventListener("click", selectSuggestedLocation);
-    }
-};  
-
-locationInput.addEventListener("input", searchLocation);
-
-
-
     //  RESETS THE INPUTS.
 function discardFunction() {
     if(locationInput.style.border != "none") {
@@ -544,7 +471,7 @@ async function saveFunction() {
             THAT THE USER SELECTS LOCATION FROM locationSuggestion.
             ONLY VALID WHEN THE USER SELECT LOCATION FROM THE locationSuggestion.
         */
-    if(locationInput.value != "" && locationSuggestion.children.length == 1) {
+    if(locationInput.value != "") {
         locationInput.removeEventListener("mouseenter", invalidLocationInputsMousEnter);
         locationInput.removeEventListener("mouseleave", invalidLocationInputsMousEave);
 
@@ -690,11 +617,7 @@ async function saveFunction() {
             ONLY UPLOADS WHEN REQUIRED FIELD ARE PROVIDED.
         */
     if(
-        (
-            locationInput.value != "" &&
-            locationSuggestion.children.length == 1
-        ) &&
-
+        locationInput.value != "" &&
         mainImage.children[1].value != "" &&
         address.value != "" &&
         houseType.value != "Any" &&

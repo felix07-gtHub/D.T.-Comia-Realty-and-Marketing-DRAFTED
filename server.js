@@ -3169,25 +3169,6 @@ app.post('/mark-sold', (req, res) => {
 
 });
 
-  //  TRIGGER THE OPEN STREET MAP END-POINT THROUGH THIS API SINCE BACK-END IS CORS ENABLED.
-app.post('/search-location', async (req, res) => {
-  const searchInput = req.body.locationValue;
-
-    //  END-POINT PROVIDED BY NOMINATIM TO FETCH DATA FROM OPEN STREET MAP.
-  const response = await fetch('https://nominatim.openstreetmap.org/search?q=' + searchInput + '&format=json',);
-  const data = await response.json();
-
-    //  INITIALIZED displayNameValue.
-  const displayNameValue = [];
-
-    //  PUSH EVERY FETCHED DISPLAY NAME TO displayNameValue.
-  for(let i = 0; i < data.length; i++) {
-    displayNameValue.push(data[i].display_name);
-  }
-
-  res.json({location: displayNameValue});
-})
-
 const uploadMiddleware = upload.fields([{ name: 'Main_image'}, { name: 'Additional_images', maxCount: 10 }])
 app.post('/add-house', uploadMiddleware, function (req, res) {
     //  USER INPUTS.
