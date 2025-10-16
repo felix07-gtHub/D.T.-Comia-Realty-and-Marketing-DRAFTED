@@ -25,6 +25,7 @@ const apiInstance = new Brevo.TransactionalEmailsApi();
 // Configure API key authorization: api-key
 apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY);
 const sendSmtpEmail = new Brevo.SendSmtpEmail();
+
 sendSmtpEmail.sender = {"name": "D.T. Comia Realty and Marketing", "email": "olan.johnfelix@gmail.com"};
 const upload = multer({ storage: multer.memoryStorage() });
 // Create a single supabase client for interacting with your database
@@ -3505,22 +3506,17 @@ app.post('/add-house', uploadMiddleware, function (req, res) {
   const bathCountInput = req.body.Bath_count.replace(/\D/g, '');
   const descriptionInput = req.body.Description;
   const status = "AVAILABLE";
-  
-    //  PROPERTY ID.
-  let propertyId = ''; 
-
-  for(let i = 0; i < req.body.Location.split(/[, ]/g)[0].length; i++) {     
-    if(req.body.Location.charAt(i).match(/[^aeiou]/i)) {
-    propertyId += req.body.Location.charAt(i).toUpperCase();
-      };
-  };
-
-  propertyId += req.body.Date_created.substring(2, 4) + req.body.Random_numbers;
-
-  const dateCreated = req.body.Date_created;
+  const d = new Date();
+  const dateCreated = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                    (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                      d.getDate().toString().padStart(2, "0") + ' ' +
+                      d.getHours().toString().padStart(2, "0") + ':' +
+                      d.getMinutes().toString().padStart(2, "0") + ':' +
+                      d.getSeconds().toString().padStart(2, "0");
 
   if(req.session.userId != undefined) {
     const userId = req.session.userId;
+    const propertyId = "PROP" + Math.floor(Math.random() * 10000);
 
       //  SELECT TYPE OF USER QUERY
     const selectTypeOfUserQuery = 'SELECT user_id, type_of_user, photo, first_name, last_name, user_name, contact_number, telephone_number, email_address, recovery_email_address, password, date_joined, date_leaved FROM main_user_table WHERE user_id = ?';
@@ -3672,22 +3668,17 @@ app.post('/add-land', uploadMiddleware, function (req, res) {
   const areaInput = req.body.Area.replace(/\D/g, '');
   const descriptionInput = req.body.Description;
   const status = "AVAILABLE";
-  
-    //  PROPERTY ID.
-  let propertyId = ''; 
-
-  for(let i = 0; i < req.body.Location.split(/[, ]/g)[0].length; i++) {     
-    if(req.body.Location.charAt(i).match(/[^aeiou]/i)) {
-    propertyId += req.body.Location.charAt(i).toUpperCase();
-      };
-  };
-
-  propertyId += req.body.Date_created.substring(2, 4) + req.body.Random_numbers;
-
-  const dateCreated = req.body.Date_created;
+  const d = new Date();
+  const dateCreated = d.getFullYear().toString().padStart(4, "0")  + '-' +
+                    (d.getMonth() + 1).toString().padStart(2, "0")  + '-' +
+                      d.getDate().toString().padStart(2, "0") + ' ' +
+                      d.getHours().toString().padStart(2, "0") + ':' +
+                      d.getMinutes().toString().padStart(2, "0") + ':' +
+                      d.getSeconds().toString().padStart(2, "0");
 
   if(req.session.userId != undefined) {
     const userId = req.session.userId;
+    const propertyId = "PROP" + Math.floor(Math.random() * 10000);
 
       //  SELECT TYPE OF USER QUERY
     const selectTypeOfUserQuery = 'SELECT user_id, type_of_user, photo, first_name, last_name, user_name, contact_number, telephone_number, email_address, recovery_email_address, password, date_joined, date_leaved FROM main_user_table WHERE user_id = ?';
