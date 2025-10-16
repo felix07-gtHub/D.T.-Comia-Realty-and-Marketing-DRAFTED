@@ -267,7 +267,7 @@ async function savedPropertiesListings() {
 
                     property.classList.add('property');
                     imageContainer.classList.add('imageContainer');
-                    propertyImage.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].main_image;
+                    propertyImage.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].main_image;
                     propertyImage.alt =  data.propertyListings[j].main_image;
                     propertyImage.type = "";
                     price.innerHTML = "&#8369;" + data.propertyListings[j].price_formatted;
@@ -502,7 +502,7 @@ async function savedPropertiesListings() {
 
                     details.classList.add('details');
                     imageContainerModal.classList.add('imageContainer');
-                    propertyMainImage.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].main_image;
+                    propertyMainImage.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].main_image;
                     propertyMainImage.alt = data.propertyListings[j].main_image;
                     propertyMainImage.type = "";
                     
@@ -665,7 +665,7 @@ async function savedPropertiesListings() {
 
                         const image1 = document.createElement('img');
 
-                        image1.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_1;
+                        image1.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_1;
                         image1.alt =  data.propertyListings[j].image_1;
                         image1.type = "";
                         
@@ -677,7 +677,7 @@ async function savedPropertiesListings() {
 
                         const image2 = document.createElement('img');
 
-                        image2.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_2;
+                        image2.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_2;
                         image2.alt =  data.propertyListings[j].image_2;
                         image2.type = "";
                         
@@ -689,7 +689,7 @@ async function savedPropertiesListings() {
 
                         const image3 = document.createElement('img');
 
-                        image3.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_3;
+                        image3.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_3;
                         image3.alt =  data.propertyListings[j].image_3;
                         image3.type = "";
                         
@@ -701,7 +701,7 @@ async function savedPropertiesListings() {
 
                         const image4 = document.createElement('img');
 
-                        image4.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_4;
+                        image4.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_4;
                         image4.alt =  data.propertyListings[j].image_4;
                         image4.type = "";
                         
@@ -713,7 +713,7 @@ async function savedPropertiesListings() {
 
                         const image5 = document.createElement('img');
 
-                        image5.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_5;
+                        image5.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_5;
                         image5.alt =  data.propertyListings[j].image_5;
                         image5.type = "";
                         
@@ -725,7 +725,7 @@ async function savedPropertiesListings() {
 
                         const image6 = document.createElement('img');
 
-                        image6.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_6;
+                        image6.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_6;
                         image6.alt =  data.propertyListings[j].image_6;
                         image6.type = "";
                         
@@ -737,7 +737,7 @@ async function savedPropertiesListings() {
 
                         const image7 = document.createElement('img');
 
-                        image7.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_7;
+                        image7.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_7;
                         image7.alt =  data.propertyListings[j].image_7;
                         image7.type = "";
                         
@@ -749,7 +749,7 @@ async function savedPropertiesListings() {
 
                         const image8 = document.createElement('img');
 
-                        image8.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_8;
+                        image8.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_8;
                         image8.alt =  data.propertyListings[j].image_8;
                         image8.type = "";
                         
@@ -761,7 +761,7 @@ async function savedPropertiesListings() {
 
                         const image9 = document.createElement('img');
 
-                        image9.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_9;
+                        image9.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_9;
                         image9.alt =  data.propertyListings[j].image_9;
                         image9.type = "";
                         
@@ -773,7 +773,7 @@ async function savedPropertiesListings() {
 
                         const image10 = document.createElement('img');
 
-                        image10.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_10;
+                        image10.src = 'https://niwxujzmwpdhegjlmyfw.supabase.co/storage/v1/object/public/D.T.%20Comia%20Realty%20and%20Marketing/PROPERTY/' + data.propertyListings[j].user_id + '/' + data.propertyListings[j].property_id + '/' + data.propertyListings[j].image_10;
                         image10.alt =  data.propertyListings[j].image_1;
                         image10.type = "";
                         

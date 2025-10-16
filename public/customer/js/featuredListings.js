@@ -168,7 +168,7 @@ async function featuredProperty() {
 
             property.classList.add('property');
             imageContainer.classList.add('imageContainer');
-            propertyImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
+            propertyImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
             propertyImage.alt =  data.featuredPropertyListings[i].main_image;
             propertyImage.type = "";
             price.innerHTML = "&#8369;" + data.featuredPropertyListings[i].price_formatted;
@@ -459,7 +459,7 @@ async function featuredProperty() {
 
             details.classList.add('details');
             imageContainerModal.classList.add('imageContainer');
-            propertyMainImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
+            propertyMainImage.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].main_image;
             propertyMainImage.alt = data.featuredPropertyListings[i].main_image;
             propertyMainImage.type = "";
             
@@ -622,7 +622,7 @@ async function featuredProperty() {
 
                 const image1 = document.createElement('img');
 
-                image1.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_1;
+                image1.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_1;
                 image1.alt =  data.featuredPropertyListings[i].image_1;
                 image1.type = "";
                 
@@ -634,7 +634,7 @@ async function featuredProperty() {
 
                 const image2 = document.createElement('img');
 
-                image2.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_2;
+                image2.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_2;
                 image2.alt =  data.featuredPropertyListings[i].image_2;
                 image2.type = "";
                 
@@ -646,7 +646,7 @@ async function featuredProperty() {
 
                 const image3 = document.createElement('img');
 
-                image3.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_3;
+                image3.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_3;
                 image3.alt =  data.featuredPropertyListings[i].image_3;
                 image3.type = "";
                 
@@ -658,7 +658,7 @@ async function featuredProperty() {
 
                 const image4 = document.createElement('img');
 
-                image4.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_4;
+                image4.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_4;
                 image4.alt =  data.featuredPropertyListings[i].image_4;
                 image4.type = "";
                 
@@ -670,7 +670,7 @@ async function featuredProperty() {
 
                 const image5 = document.createElement('img');
 
-                image5.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_5;
+                image5.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_5;
                 image5.alt =  data.featuredPropertyListings[i].image_5;
                 image5.type = "";
                 
@@ -682,7 +682,7 @@ async function featuredProperty() {
 
                 const image6 = document.createElement('img');
 
-                image6.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_6;
+                image6.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_6;
                 image6.alt =  data.featuredPropertyListings[i].image_6;
                 image6.type = "";
                 
@@ -694,7 +694,7 @@ async function featuredProperty() {
 
                 const image7 = document.createElement('img');
 
-                image7.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_7;
+                image7.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_7;
                 image7.alt =  data.featuredPropertyListings[i].image_7;
                 image7.type = "";
                 
@@ -706,7 +706,7 @@ async function featuredProperty() {
 
                 const image8 = document.createElement('img');
 
-                image8.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_8;
+                image8.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_8;
                 image8.alt =  data.featuredPropertyListings[i].image_8;
                 image8.type = "";
                 
@@ -718,7 +718,7 @@ async function featuredProperty() {
 
                 const image9 = document.createElement('img');
 
-                image9.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_9;
+                image9.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_9;
                 image9.alt =  data.featuredPropertyListings[i].image_9;
                 image9.type = "";
                 
@@ -730,7 +730,7 @@ async function featuredProperty() {
 
                 const image10 = document.createElement('img');
 
-                image10.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].location.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_10;
+                image10.src = '../resources/PROPERTY/' + data.featuredPropertyListings[i].user_id + '/' + data.featuredPropertyListings[i].property_id + '/' + data.featuredPropertyListings[i].image_10;
                 image10.alt =  data.featuredPropertyListings[i].image_1;
                 image10.type = "";
                 

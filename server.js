@@ -839,7 +839,7 @@ app.post('/email-verification', (req, res) => {
 
               //  GENERATE USER ID.
             function userIdFunction() {
-              const randomIndex = Math.floor(Math.random() * 10000);
+              const randomIndex = Math.floor(Math.random() * 9999);
               userId = "USER" + randomIndex;
             };
 
@@ -3594,7 +3594,7 @@ app.post('/add-house', uploadMiddleware, function (req, res) {
             const { data, error } = await supabase
             .storage
             .from('D.T. Comia Realty and Marketing')
-            .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
+            .upload('PROPERTY/' + userId + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
               cacheControl: '3600',
               upsert: false
             })
@@ -3605,7 +3605,7 @@ app.post('/add-house', uploadMiddleware, function (req, res) {
                 const { data, error } = await supabase
                 .storage
                 .from('D.T. Comia Realty and Marketing')
-                .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
+                .upload('PROPERTY/' + userId + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
                   cacheControl: '3600',
                   upsert: false
                 })
@@ -3617,13 +3617,13 @@ app.post('/add-house', uploadMiddleware, function (req, res) {
             EXAMPLE FOLDER STRUCTURE:
               resources/
                 PROPERTY/
-                  [Location(1)]
+                  [USER ID(1)]
                     [PROPERTY ID(1)]
                       FILE(ORIGINAL NAME)
                     [PROPERTY ID(2)]
                       FILE(ORIGINAL NAME)(1)
                       FILE(ORIGINAL NAME)(2)
-                  [Location(2)]
+                  [USER ID(2)]
                     [PROPERTY ID]
                       FILE(ORIGINAL NAME)(1)
                       FILE(ORIGINAL NAME)(2)
@@ -3754,7 +3754,7 @@ app.post('/add-land', uploadMiddleware, function (req, res) {
             const { data, error } = await supabase
             .storage
             .from('D.T. Comia Realty and Marketing')
-            .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
+            .upload('PROPERTY/' + userId + '/' + propertyId + '/' + req.files['Main_image'][0].originalname, avatarFile.buffer, {
               cacheControl: '3600',
               upsert: false
             })
@@ -3765,7 +3765,7 @@ app.post('/add-land', uploadMiddleware, function (req, res) {
                 const { data, error } = await supabase
                 .storage
                 .from('D.T. Comia Realty and Marketing')
-                .upload('PROPERTY/' + locationInput.replace(/[,]/g, "").replace(/[ ]/g, "_") + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
+                .upload('PROPERTY/' + userId + '/' + propertyId + '/' + req.files['Additional_images'][i].originalname, avatarFile.buffer, {
                   cacheControl: '3600',
                   upsert: false
                 })
@@ -3777,13 +3777,13 @@ app.post('/add-land', uploadMiddleware, function (req, res) {
             EXAMPLE FOLDER STRUCTURE:
               resources/
                 PROPERTY/
-                  [Location(1)]
+                  [USER ID(1)]
                     [PROPERTY ID(1)]
                       FILE(ORIGINAL NAME)
                     [PROPERTY ID(2)]
                       FILE(ORIGINAL NAME)(1)
                       FILE(ORIGINAL NAME)(2)
-                  [Location(2)]
+                  [USER ID(2)]
                     [PROPERTY ID]
                       FILE(ORIGINAL NAME)(1)
                       FILE(ORIGINAL NAME)(2)
