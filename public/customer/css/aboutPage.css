@@ -10,21 +10,21 @@ p {
 }
 
     /* TARGET THE ELEMENT WITH THE LINK OF THE ACTIVE PAGE */
-nav > ul > li:nth-child(5) {
+nav > ul > li:nth-child(4) {
     transform: scale(1.1);
     transition: transform 0.25s;
 }
 
-nav > ul > li:nth-child(5) > a {
+nav > ul > li:nth-child(4) > a {
     color: #f8ce7f;
 } 
 
-#menuTab > ul > li:nth-child(5) {
+#menuTab > ul > li:nth-child(4) {
     transform: scale(1.1);
     transition: transform 0.25s;
 }
 
-#menuTab > ul > li:nth-child(5) > a {
+#menuTab > ul > li:nth-child(4) > a {
     color: #f8ce7f;
 }
 

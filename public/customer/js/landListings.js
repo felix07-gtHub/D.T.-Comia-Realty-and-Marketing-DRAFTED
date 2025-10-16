@@ -748,7 +748,6 @@ async function landListings() {
 
             const propertyType = document.createElement('p');
             const hr = document.createElement('hr');
-            const locationModal = document.createElement('a');
             const bedRooms = document.createElement('p');
             const bedRoomsCount = document.createElement('p');
             const bathRooms = document.createElement('p');
@@ -759,8 +758,6 @@ async function landListings() {
             const div = document.createElement('div');
          
             propertyType.innerHTML = data.landListings[i].property_type;
-            locationModal.href = "./gpsSystem.html";
-            locationModal.innerHTML = "View Location";
             bedRooms.innerHTML = "Bedrooms";
             bedRoomsCount.innerHTML = data.landListings[i].room_count;
             bathRooms.innerHTML = "Bathrooms";
@@ -772,7 +769,6 @@ async function landListings() {
 
             details.appendChild(propertyType);
             details.appendChild(hr);
-            details.appendChild(locationModal);
             details.appendChild(bedRooms);
             details.appendChild(bedRoomsCount);
             details.appendChild(bathRooms);

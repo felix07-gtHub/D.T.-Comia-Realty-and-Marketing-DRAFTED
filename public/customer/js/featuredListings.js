@@ -573,7 +573,6 @@ async function featuredProperty() {
 
             const propertyType = document.createElement('p');
             const hr = document.createElement('hr');
-            const locationModal = document.createElement('a');
             const bedRooms = document.createElement('p');
             const bedRoomsCount = document.createElement('p');
             const bathRooms = document.createElement('p');
@@ -584,8 +583,6 @@ async function featuredProperty() {
             const div = document.createElement('div');
          
             propertyType.innerHTML = data.featuredPropertyListings[i].property_type;
-            locationModal.href = "./gpsSystem.html";
-            locationModal.innerHTML = "View Location";
             bedRooms.innerHTML = "Bedrooms";
             bedRoomsCount.innerHTML = data.featuredPropertyListings[i].room_count;
             bathRooms.innerHTML = "Bathrooms";
@@ -597,7 +594,6 @@ async function featuredProperty() {
 
             details.appendChild(propertyType);
             details.appendChild(hr);
-            details.appendChild(locationModal);
             details.appendChild(bedRooms);
             details.appendChild(bedRoomsCount);
             details.appendChild(bathRooms);
