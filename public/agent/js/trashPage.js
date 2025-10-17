@@ -241,7 +241,6 @@ async function deletedListings() {
 
                 const propertyType = document.createElement('p');
                 const hr = document.createElement('hr');
-                const locationModal = document.createElement('a');
                 const bedRooms = document.createElement('p');
                 const bedRoomsCount = document.createElement('p');
                 const bathRooms = document.createElement('p');
@@ -252,8 +251,6 @@ async function deletedListings() {
                 const div = document.createElement('div');
                 
                 propertyType.innerHTML = data.deletedPropertyListings[i].property_type;
-                locationModal.href = "";
-                locationModal.innerHTML = "View Location";
                 bedRooms.innerHTML = "Bedrooms";
                 bedRoomsCount.innerHTML = data.deletedPropertyListings[i].room_count;
                 bathRooms.innerHTML = "Bathrooms";
@@ -265,7 +262,6 @@ async function deletedListings() {
 
                 details.appendChild(propertyType);
                 details.appendChild(hr);
-                details.appendChild(locationModal);
                 details.appendChild(bedRooms);
                 details.appendChild(bedRoomsCount);
                 details.appendChild(bathRooms);
@@ -743,5 +739,6 @@ function deleteAllFunction() {
     toggleSelectFunction();
 
 };
+
 
 document.querySelector('#deleteAll').addEventListener("click", deleteAllFunction);
