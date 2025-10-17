@@ -226,19 +226,9 @@
     border: solid 1.25px #4e6e5d;
 }
 
-.propertyDetails > .propertyModal > .details > hr + a {
-    margin: 3.25px 0px;
-    font-size: 15px;
-    color: #68bbe3;
-    width: 100%;
-    padding-left: 7.5px;
-    box-sizing: border-box;
-    text-decoration: none;
-}
-
-.propertyDetails > .propertyModal > .details > p:nth-child(7),
-.propertyDetails > .propertyModal > .details > p:nth-child(9),
-.propertyDetails > .propertyModal > .details > p:nth-child(11) {
+.propertyDetails > .propertyModal > .details > p:nth-child(6),
+.propertyDetails > .propertyModal > .details > p:nth-child(8),
+.propertyDetails > .propertyModal > .details > p:nth-child(10) {
     margin: 3.25px 0px;
     font-size: 15px;
     color: #354024;
@@ -247,9 +237,9 @@
     box-sizing: border-box;
 }
 
-.propertyDetails > .propertyModal > .details > p:nth-child(8),
-.propertyDetails > .propertyModal > .details > p:nth-child(10),
-.propertyDetails > .propertyModal > .details > p:nth-child(12) {
+.propertyDetails > .propertyModal > .details > p:nth-child(7),
+.propertyDetails > .propertyModal > .details > p:nth-child(9),
+.propertyDetails > .propertyModal > .details > p:nth-child(11) {
     margin: 3.25px 0px;
     font-size: 15px;
     width: 50%;
@@ -319,4 +309,5 @@
     padding: 12px;
     box-sizing: border-box;
     margin: 15px;
+
 }
