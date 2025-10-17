@@ -279,7 +279,6 @@ async function featuredLandListings() {
 
         const propertyType = document.createElement('p');
         const hr = document.createElement('hr');
-        const locationModal = document.createElement('a');
         const bedRooms = document.createElement('p');
         const bedRoomsCount = document.createElement('p');
         const bathRooms = document.createElement('p');
@@ -290,8 +289,6 @@ async function featuredLandListings() {
         const div = document.createElement('div');
          
         propertyType.innerHTML = data.featuredLandListings[i].property_type;
-        locationModal.href = "";
-        locationModal.innerHTML = "View Location";
         bedRooms.innerHTML = "Bedrooms";
         bedRoomsCount.innerHTML = data.featuredLandListings[i].room_count;
         bathRooms.innerHTML = "Bathrooms";
@@ -303,7 +300,6 @@ async function featuredLandListings() {
 
         details.appendChild(propertyType);
         details.appendChild(hr);
-        details.appendChild(locationModal);
         details.appendChild(bedRooms);
         details.appendChild(bedRoomsCount);
         details.appendChild(bathRooms);
@@ -578,3 +574,4 @@ async function featuredLandListings() {
 
 
 featuredLandListings().catch(console.error);
+
