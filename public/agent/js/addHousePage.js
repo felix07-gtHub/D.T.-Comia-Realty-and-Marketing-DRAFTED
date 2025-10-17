@@ -1,7 +1,7 @@
     //-----------------------------------------------------------HOVER STYLE FOR LOCATION INTPUT-----------------------------------------------------------.
     // SEPARATED DUE TO DIFFERENCE IN STRUCTURE.
 const locationInput = document.querySelector('#AddProperty input[name="Location"]');
-const locationSuggestion= document.querySelector('#AddProperty > form > div:nth-child(4) > div');
+const locationSuggestion= document.querySelector('#AddProperty > form > div:nth-child(2) > div');
 
     //  FUNCTION FOR VALID INPUTS mouseenter.
 function validLocationInputsMousEnter(e) {
@@ -645,5 +645,6 @@ async function saveFunction() {
     };
 
 };
+
 
 save.addEventListener("click", saveFunction);
